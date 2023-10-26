@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://bmqck00sexd26"]
+
+[node name="testBox" type="Node3D"]

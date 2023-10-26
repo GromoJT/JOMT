@@ -1,0 +1,109 @@
+[gd_scene load_steps=8 format=3 uid="uid://bw18gd0i0ip5u"]
+
+[ext_resource type="Script" path="res://scenes/Levels/MeshLibSwapper.gd" id="1_usmta"]
+[ext_resource type="PackedScene" uid="uid://c4rp0l163hj3f" path="res://scenes/interactable/test_box_2.tscn" id="2_o4wen"]
+[ext_resource type="MeshLibrary" uid="uid://bcm2f0l1stqc3" path="res://assets/tiles/tiles3d_dungeon_2/3dtiles_dungeon_2.tres" id="2_ywj8j"]
+[ext_resource type="PackedScene" uid="uid://b7auludcjtfv7" path="res://scenes/interactable/Lever.tscn" id="4_8ygik"]
+[ext_resource type="Script" path="res://scenes/Levels/StaticBody3D.gd" id="4_u2br4"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mg7b3"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_ji3oy"]
+
+[node name="Geometry" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1.2, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="Level_0" type="Node3D" parent="."]
+script = ExtResource("1_usmta")
+MeshLib = ExtResource("2_ywj8j")
+
+[node name="Floors" type="GridMap" parent="Level_0"]
+transform = Transform3D(2, 0, 0, 0, 0.5, 0, 0, 0, 2, 0, 0, 0)
+mesh_library = ExtResource("2_ywj8j")
+data = {
+"cells": PackedInt32Array(65535, 65535, 8, 65535, 0, 8, 0, 0, 8, 0, 65535, 8, 65534, 65534, 8, 65535, 65534, 8, 0, 65534, 8, 1, 65534, 8, 1, 65535, 8, 1, 0, 8, 1, 1, 8, 0, 1, 8, 65535, 1, 8, 65534, 1, 8, 65534, 0, 8, 65534, 65535, 8, 65535, 2, 8, 65534, 2, 8, 65533, 2, 8, 65533, 1, 8, 65533, 0, 8, 65533, 65535, 8, 65533, 65534, 8, 65532, 65534, 8, 65532, 65535, 8, 65532, 0, 8, 65532, 1, 8, 65532, 2, 8, 65532, 3, 8, 65532, 4, 8, 65532, 5, 8, 65533, 5, 8, 65534, 5, 8, 65535, 5, 8, 0, 5, 8, 1, 5, 8, 1, 4, 8, 1, 3, 8, 1, 2, 8, 0, 2, 8, 0, 3, 8, 0, 4, 8, 65535, 4, 8, 65535, 3, 8, 65534, 3, 8, 65533, 3, 8, 65533, 4, 8, 65534, 4, 8)
+}
+metadata/_editor_floor_ = Vector3(0, 0, 0)
+
+[node name="Walls" type="GridMap" parent="Level_0"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+mesh_library = ExtResource("2_ywj8j")
+data = {
+"cells": PackedInt32Array(1, 1, 5, 65534, 65534, 1048581, 1, 65534, 6, 65535, 65534, 1441795, 0, 65534, 1048581, 1, 65535, 655363, 1, 0, 655363, 0, 0, 17, 0, 65535, 1048580, 65535, 65535, 1048593, 65534, 65535, 655366, 0, 1, 655366, 1, 2, 3, 1, 3, 3, 1, 4, 3, 65532, 65535, 3, 65532, 65534, 1048582, 65533, 65534, 1048579, 65532, 0, 3, 65532, 1, 3, 65532, 2, 3, 65532, 3, 3, 65532, 4, 3, 65535, 5, 1441795, 65534, 5, 1441797, 65533, 5, 1441795, 65532, 5, 655366, 0, 2, 6, 65534, 2, 1048580, 0, 3, 3, 65535, 4, 655366, 65535, 3, 6, 65534, 3, 655366, 65533, 2, 1048582, 65533, 3, 1441798, 1, 5, 1441798, 0, 4, 1441798, 0, 5, 1441795, 65535, 2, 1048598)
+}
+
+[node name="Miscs" type="GridMap" parent="Level_0"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+mesh_library = ExtResource("2_ywj8j")
+
+[node name="Ramps" type="GridMap" parent="Level_0"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+mesh_library = ExtResource("2_ywj8j")
+data = {
+"cells": PackedInt32Array(65535, 5, 655369, 0, 5, 655370)
+}
+metadata/_editor_floor_ = Vector3(0, 0, 0)
+
+[node name="Objects" type="Node3D" parent="Level_0"]
+
+[node name="RigidBody3D" parent="Level_0/Objects" instance=ExtResource("2_o4wen")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -4, 1, 0)
+mass = 1.06
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Level_0/Objects"]
+transform = Transform3D(-0.866025, 0, -0.5, 0, 0.833333, 0, 0.5, 0, -0.866025, -0.673516, 2, 13.2764)
+light_color = Color(0.8, 0, 0.121569, 1)
+light_energy = 2.067
+shadow_enabled = true
+spot_range = 11.201
+spot_attenuation = 0.420448
+spot_angle = 63.05
+spot_angle_attenuation = 0.482968
+
+[node name="Lever" parent="Level_0/Objects" instance=ExtResource("4_8ygik")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.91667, -1.6)
+collision_layer = 5
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Level_0/Objects" groups=["Interactable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1.66667, 0)
+collision_layer = 5
+script = ExtResource("4_u2br4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level_0/Objects/StaticBody3D"]
+shape = SubResource("BoxShape3D_mg7b3")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Level_0/Objects/StaticBody3D"]
+mesh = SubResource("BoxMesh_ji3oy")
+
+[node name="Level_1" type="Node3D" parent="."]
+script = ExtResource("1_usmta")
+MeshLib = ExtResource("2_ywj8j")
+
+[node name="Floors" type="GridMap" parent="Level_1"]
+transform = Transform3D(2, 0, 0, 0, 1, 0, 0, 0, 2, 0, 0, 0)
+mesh_library = ExtResource("2_ywj8j")
+data = {
+"cells": PackedInt32Array(131073, 65534, 8, 131073, 65535, 8, 131073, 0, 8, 131073, 1, 8, 131072, 1, 8, 196607, 1, 8, 196606, 1, 8, 196606, 0, 8, 196606, 65535, 8, 196606, 65534, 8, 196607, 65534, 8, 131072, 65534, 8, 131072, 65535, 8, 131072, 0, 8, 196607, 0, 8, 196607, 65535, 8, 196606, 2, 8, 196607, 2, 8, 131072, 2, 8, 131073, 2, 8, 196605, 2, 8, 196605, 1, 8, 196605, 0, 8, 196605, 65535, 8, 196605, 65534, 8, 196604, 65534, 8, 196604, 65535, 8, 196604, 0, 8, 196604, 1, 8, 196604, 2, 8, 196606, 5, 655367, 196607, 4, 8, 196606, 4, 8, 131072, 4, 8, 131073, 5, 655368, 131073, 4, 655368, 131073, 3, 8, 131072, 3, 8, 196607, 3, 8, 196606, 3, 8, 131072, 5, 1441807, 196605, 3, 8, 196605, 4, 8, 196605, 5, 8, 196604, 3, 8, 196604, 4, 8, 196604, 5, 8)
+}
+metadata/_editor_floor_ = Vector3(0, 2, 0)
+
+[node name="Walls" type="GridMap" parent="Level_1"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+mesh_library = ExtResource("2_ywj8j")
+data = {
+"cells": PackedInt32Array(131068, 3, 655363, 131068, 4, 655363, 131068, 65535, 655363, 131069, 65534, 1048579, 131070, 65534, 1048579, 131071, 65534, 1048579, 65536, 65534, 1048579, 65537, 65535, 3, 65537, 0, 3, 65537, 1, 3, 65537, 2, 3, 65537, 3, 3, 65537, 4, 3, 65536, 5, 1441795, 131071, 5, 1441795, 131070, 5, 1441795, 131069, 5, 1441795, 131068, 5, 655366, 65537, 5, 1441798, 131068, 65534, 1048582, 65537, 65534, 6)
+}
+metadata/_editor_floor_ = Vector3(0, 1, 0)
+
+[node name="Miscs" type="GridMap" parent="Level_1"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+visible = false
+mesh_library = ExtResource("2_ywj8j")
+metadata/_editor_floor_ = Vector3(0, 1, 0)
+
+[node name="Ramps" type="GridMap" parent="Level_1"]
+mesh_library = ExtResource("2_ywj8j")
+data = {
+"cells": PackedInt32Array(196604, 6, 10, 196605, 6, 9, 262142, 6, 10, 262143, 6, 9, 262144, 6, 7, 262144, 5, 1048586, 262144, 4, 1048585, 327680, 3, 1048583, 393215, 3, 655370, 393214, 3, 655369)
+}
+metadata/_editor_floor_ = Vector3(0, 5, 0)

@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://d3e3se5wxiyho"]
+
+[ext_resource type="Environment" uid="uid://ddbuvg60s3ja" path="res://assets/env/base_env.tres" id="1_bjada"]
+[ext_resource type="PackedScene" uid="uid://bw18gd0i0ip5u" path="res://scenes/Levels/geometry.tscn" id="1_yl2hx"]
+[ext_resource type="PackedScene" uid="uid://38q4fe3wbosk" path="res://scenes/player/player_advance.tscn" id="2_hnyxl"]
+
+[node name="Master_1" type="Node3D"]
+
+[node name="Env" type="Node3D" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Env"]
+environment = ExtResource("1_bjada")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Env"]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+layers = 3
+shadow_enabled = true
+
+[node name="Geometry" parent="." instance=ExtResource("1_yl2hx")]
+
+[node name="Player" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+
+[node name="Player" parent="Player" instance=ExtResource("2_hnyxl")]
+transform = Transform3D(-0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, -0.707107, 0, -0.1, 0)

@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://c4rp0l163hj3f"]
+
+[ext_resource type="Script" path="res://scenes/interactable/test_box_2.gd" id="1_mxfbj"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_msihn"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xm0gt"]
+albedo_color = Color(0.980392, 0.262745, 0.145098, 1)
+metallic_specular = 0.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_v33sm"]
+material = SubResource("StandardMaterial3D_xm0gt")
+
+[node name="RigidBody3D" type="RigidBody3D" groups=["holdable"]]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+collision_layer = 4
+contact_monitor = true
+script = ExtResource("1_mxfbj")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." groups=["holdable"]]
+shape = SubResource("BoxShape3D_msihn")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
+mesh = SubResource("BoxMesh_v33sm")
+skeleton = NodePath("../..")

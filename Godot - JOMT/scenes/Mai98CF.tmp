@@ -1,0 +1,83 @@
+[gd_scene load_steps=10 format=3 uid="uid://cw54xms5aimob"]
+
+[ext_resource type="MeshLibrary" uid="uid://cn4spyjnq5xvd" path="res://new_tiles/new_tileset.meshlib" id="1_jvsti"]
+[ext_resource type="PackedScene" uid="uid://38q4fe3wbosk" path="res://scenes/player_advance.tscn" id="2_egbao"]
+[ext_resource type="PackedScene" uid="uid://dfl7x3uihwmiu" path="res://scenes/ui/ui.tscn" id="3_p54v2"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cd1t1"]
+albedo_color = Color(1, 0.427451, 0.356863, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_gr1l8"]
+material = SubResource("StandardMaterial3D_cd1t1")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_53vf1"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_75jml"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_ok7vf"]
+sky_material = SubResource("ProceduralSkyMaterial_75jml")
+
+[sub_resource type="Environment" id="Environment_xw4px"]
+background_mode = 2
+sky = SubResource("Sky_ok7vf")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="Main" type="Node3D"]
+
+[node name="Level" type="Node3D" parent="."]
+
+[node name="floor" type="GridMap" parent="Level"]
+transform = Transform3D(1.5, 0, 0, 0, 2, 0, 0, 0, 1.5, 0, 0, 0)
+mesh_library = ExtResource("1_jvsti")
+data = {
+"cells": PackedInt32Array(1, 0, 3, 1, 65535, 3, 2, 65535, 3, 2, 0, 3, 0, 65535, 3, 65535, 65535, 3, 65535, 0, 3, 0, 0, 3, 65535, 1, 3, 0, 1, 3, 1, 1, 3, 2, 1, 3, 3, 0, 3, 3, 65535, 3, 3, 65534, 3, 2, 65534, 3, 1, 65534, 3, 0, 65534, 3, 65535, 65534, 3, 65534, 65534, 3, 65534, 65535, 3, 65534, 0, 3, 65534, 1, 3, 65534, 2, 3, 65535, 2, 3, 0, 2, 3, 1, 2, 3, 2, 2, 3, 3, 1, 3, 3, 2, 3)
+}
+
+[node name="wall" type="GridMap" parent="Level"]
+transform = Transform3D(1.5, 0, 0, 0, 2, 0, 0, 0, 1.5, 0, 0, 0)
+mesh_library = ExtResource("1_jvsti")
+data = {
+"cells": PackedInt32Array(3, 2, 1441797, 3, 65534, 5, 65534, 65534, 1048581, 65534, 2, 655365, 1, 2, 1441798, 0, 2, 1441796, 65535, 2, 1441796, 2, 2, 1441796, 3, 1, 655364, 3, 0, 655364, 3, 65535, 655364, 2, 65534, 1179654, 1, 65534, 1048580, 65535, 65534, 1048580, 0, 65534, 1048580, 65534, 65535, 4, 65534, 0, 4, 65534, 1, 4, 0, 1, 1441800, 65535, 1, 10, 65538, 1, 1441806, 65537, 65534, 1441795, 65537, 65535, 1441795, 65537, 0, 1441795, 65537, 1, 1441795, 65537, 2, 1441795, 65536, 2, 1441795, 65536, 1, 1441792, 65536, 0, 1441795, 65536, 65535, 1441795, 65536, 65534, 1441795, 65536, 65533, 1441795, 131071, 65534, 1441795, 131071, 65535, 1441795, 131071, 0, 1441792, 131071, 1, 1441795, 131071, 2, 1441795, 131070, 2, 1441795, 131070, 1, 1441795, 131070, 0, 1441795, 131070, 65535, 1441795, 131070, 65534, 1441795, 65538, 2, 1441795, 65539, 2, 1441795, 65539, 1, 1441795, 65539, 0, 1441795, 65539, 65535, 1441795, 65539, 65534, 1441795, 65538, 65534, 1441795, 1, 1, 1048587, 2, 65535, 524297, 2, 0, 524297, 2, 1, 524297)
+}
+metadata/_editor_floor_ = Vector3(0, 1, 0)
+
+[node name="ramp" type="GridMap" parent="Level"]
+transform = Transform3D(1.5, 0, 0, 0, 2, 0, 0, 0, 1.5, 0, 0, 0)
+mesh_library = ExtResource("1_jvsti")
+data = {
+"cells": PackedInt32Array(2, 65535, 1441804, 2, 0, 1441805)
+}
+
+[node name="interactable_items" type="Node3D" parent="Level"]
+
+[node name="Ball" type="RigidBody3D" parent="Level/interactable_items"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 2, -2)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Level/interactable_items/Ball"]
+mesh = SubResource("SphereMesh_gr1l8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/interactable_items/Ball"]
+shape = SubResource("SphereShape3D_53vf1")
+
+[node name="Env" type="Node3D" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Env"]
+environment = SubResource("Environment_xw4px")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Env"]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Player" parent="." instance=ExtResource("2_egbao")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+walking_speed = 5.0
+sprinting_speed = 8.0
+crouching_speed = 3.0
+slide_speed = 10.0
+player_height = 1.8
+mouse_sens = 0.25
+
+[node name="UI" parent="." instance=ExtResource("3_p54v2")]

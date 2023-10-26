@@ -1,0 +1,56 @@
+[gd_scene load_steps=8 format=3 uid="uid://bd16fd6ivm3kk"]
+
+[ext_resource type="Texture2D" uid="uid://cavq1ue7v32gu" path="res://texture_07.png" id="1_iycaf"]
+[ext_resource type="Script" path="res://scripts/Player_new.gd" id="2_ee3qa"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_03eyy"]
+albedo_texture = ExtResource("1_iycaf")
+uv1_triplanar = true
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_myivt"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_3yess"]
+sky_material = SubResource("ProceduralSkyMaterial_myivt")
+
+[sub_resource type="Environment" id="Environment_ms4wg"]
+background_mode = 2
+sky = SubResource("Sky_3yess")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ixnuc"]
+
+[node name="WORLD" type="Node3D"]
+
+[node name="stage" type="Node3D" parent="."]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="stage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+material_override = SubResource("StandardMaterial3D_03eyy")
+use_collision = true
+size = Vector3(20, 1, 20)
+
+[node name="env" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 0)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="env"]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="env"]
+environment = SubResource("Environment_ms4wg")
+
+[node name="Player" type="CharacterBody3D" parent="."]
+script = ExtResource("2_ee3qa")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_ixnuc")
+
+[node name="Head" type="Node3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Player/Head"]
+fov = 90.0

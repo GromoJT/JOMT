@@ -1,0 +1,44 @@
+[gd_scene load_steps=6 format=3 uid="uid://cw54xms5aimob"]
+
+[ext_resource type="MeshLibrary" uid="uid://cn4spyjnq5xvd" path="res://new_tiles/new_tileset.meshlib" id="1_jvsti"]
+[ext_resource type="PackedScene" uid="uid://38q4fe3wbosk" path="res://scenes/player_advance.tscn" id="2_egbao"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_75jml"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_ok7vf"]
+sky_material = SubResource("ProceduralSkyMaterial_75jml")
+
+[sub_resource type="Environment" id="Environment_xw4px"]
+background_mode = 2
+sky = SubResource("Sky_ok7vf")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="Main" type="Node3D"]
+
+[node name="Level" type="Node3D" parent="."]
+
+[node name="floor" type="GridMap" parent="Level"]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
+mesh_library = ExtResource("1_jvsti")
+data = {
+"cells": PackedInt32Array(1, 0, 3, 1, 65535, 3, 2, 65535, 3, 2, 0, 3, 0, 65535, 3, 65535, 65535, 3, 65535, 0, 3, 0, 0, 3)
+}
+
+[node name="wall" type="GridMap" parent="Level"]
+mesh_library = ExtResource("1_jvsti")
+cell_size = Vector3(1, 1, 1)
+
+[node name="Env" type="Node3D" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Env"]
+environment = SubResource("Environment_xw4px")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Env"]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Player" parent="." instance=ExtResource("2_egbao")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

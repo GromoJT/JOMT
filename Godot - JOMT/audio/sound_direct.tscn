@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://g3jydyk7h7gq"]
+
+[ext_resource type="Script" path="res://audio/sound_direct.gd" id="1_d3kr4"]
+
+[node name="sound_direct" type="AudioStreamPlayer"]
+pitch_scale = 0.5
+script = ExtResource("1_d3kr4")
