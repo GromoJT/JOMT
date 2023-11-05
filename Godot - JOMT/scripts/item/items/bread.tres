@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=4 format=3 uid="uid://b4608uqsp3am0"]
+
+[ext_resource type="Script" path="res://scripts/item/item_data.gd" id="1_o46ui"]
+[ext_resource type="Texture2D" uid="uid://s5g7kcxy0thw" path="res://scripts/item/item_atlas_1.png" id="2_epn0h"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1ucvm"]
+atlas = ExtResource("2_epn0h")
+region = Rect2(0, 0, 256, 256)
+
+[resource]
+script = ExtResource("1_o46ui")
+naem = "Chleb"
+description = "Trochę czerstwy i wielkością bardziej przypomina kajzerke..."
+stackable = true
+texture = SubResource("AtlasTexture_1ucvm")

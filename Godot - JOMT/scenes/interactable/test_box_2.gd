@@ -10,7 +10,7 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 
 func schrink():
@@ -19,13 +19,13 @@ func schrink():
 func deshrink():
 	mesh_instance_3d.set_scale(Vector3(1,1,1))
 func disable_collisions():
-	print("Disabled")
+#	print("Disabled")
 	collision_shape_3d.disabled = true
 	mesh_instance_3d.set_layer_mask_value(1,false);
 	mesh_instance_3d.set_layer_mask_value(2,true);
 	schrink()
 func enable_collisions():
-	print("Enabled")
+#	print("Enabled")
 	collision_shape_3d.disabled = false
 	mesh_instance_3d.set_layer_mask_value(1,true);
 	mesh_instance_3d.set_layer_mask_value(2,false);

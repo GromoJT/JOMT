@@ -12,7 +12,7 @@ size = Vector3(0.05, 0.05, 0.3)
 
 [sub_resource type="Animation" id="Animation_oq8dm"]
 resource_name = "Activate"
-length = 0.5
+length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -20,15 +20,15 @@ tracks/0/path = NodePath("Lever/MeshInstance3D/RotationPoint:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 6.49801),
 "update": 0,
 "values": [Vector3(-0.436332, 0, 0), Vector3(0.436332, 0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_xakoo"]
 resource_name = "Deactivation"
-length = 0.5
+length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -36,7 +36,7 @@ tracks/0/path = NodePath("Lever/MeshInstance3D/RotationPoint:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
+"times": PackedFloat32Array(0, 0.2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector3(0.436332, 0, 0), Vector3(-0.436332, 0, 0)]
@@ -89,6 +89,7 @@ libraries = {
 }
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 0.9
+wait_time = 0.2
+one_shot = true
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

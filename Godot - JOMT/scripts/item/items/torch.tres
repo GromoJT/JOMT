@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=4 format=3 uid="uid://bppeogqgpuojx"]
+
+[ext_resource type="Script" path="res://scripts/item/item_data.gd" id="1_x13ws"]
+[ext_resource type="Texture2D" uid="uid://s5g7kcxy0thw" path="res://scripts/item/item_atlas_1.png" id="2_ivqy2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wj1ag"]
+atlas = ExtResource("2_ivqy2")
+region = Rect2(256, 0, 256, 256)
+
+[resource]
+script = ExtResource("1_x13ws")
+naem = "Pochodnia"
+description = "Płonąca szmata na kiju... Typowa prowizorka, co wyjaśnia którki czas pracy..."
+stackable = true
+texture = SubResource("AtlasTexture_wj1ag")
