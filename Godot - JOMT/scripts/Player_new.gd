@@ -1,5 +1,5 @@
-extends StairsCharacter
-
+#extends StairsCharacter
+extends CharacterBody3D
 # Player nodes
 #---------------#
 
@@ -18,7 +18,10 @@ extends StairsCharacter
 #---MainCameraTree---#
 @onready var main_camera_3d: Camera3D = $Nek/Head/Eyes/MainCamera3D
 #+++Interaction+++#
-@onready var lean_wall_detector: RayCast3D = $Nek/Lean_wall_detector
+@onready var lean_area_detector_l: Area3D = $Lean_area_detector_L
+@onready var lean_area_detector_r: Area3D = $Lean_area_detector_R
+
+
 @onready var interaction_grabbing_ray: RayCast3D = $Nek/Head/Eyes/MainCamera3D/Interaction_grabbing_ray
 @onready var drop_check: Area3D = $Nek/Head/Eyes/MainCamera3D/Drop_check
 @onready var double_drop_check: RayCast3D = $Nek/Head/Eyes/MainCamera3D/Double_Drop_check
@@ -26,6 +29,7 @@ extends StairsCharacter
 @onready var joint: Generic6DOFJoint3D = $Nek/Head/Eyes/MainCamera3D/Generic6DOFJoint3D
 @onready var static_body_for_grabbed_item: StaticBody3D = $Nek/Head/Eyes/MainCamera3D/SB_for_grabbed_item
 @onready var throw_pos: Marker3D = $Nek/Head/Eyes/MainCamera3D/Throw_pos
+@onready var anti_in_wall_walking_ray: RayCast3D = $Nek/Head/Anti_in_wall_walking_ray
 #+++SubView+++#
 @onready var gun_cam: Camera3D = $Nek/Head/Eyes/MainCamera3D/SubViewportContainer/SubViewport/GunCam
 #+++AnimationPlayer+++#
@@ -55,7 +59,8 @@ signal send_pick_up_item_to_geometry(slotData:SlotData,position:Vector3)
 
 #---PRELOADES---#
 var sound_direct = preload("res://audio/sound_direct.tscn")
-const PickUp = preload("res://scripts/item/pick_ups/pick_up.tscn")
+#const PickUp = preload("res://scripts/item/pick_ups/pick_up.tscn")
+
 
 #---externalNodes---#
 @export var footsteps_sounds : Array[AudioStreamMP3]
@@ -66,6 +71,9 @@ const PickUp = preload("res://scripts/item/pick_ups/pick_up.tscn")
 @export var crouching_speed = 3.0
 @export var slide_speed = 10.0
 
+var last_horizontal_pos : Vector2 = Vector2.ZERO
+var HV: float
+
 # State Machine
 var walking: bool = false
 var sprinting: bool = false
@@ -73,7 +81,8 @@ var crouching: bool = false
 var free_looking: bool = false
 var sliding: bool = false
 var slideable: bool = false
-var leaning: bool = false
+var leaning_left: bool = false
+var leaning_right: bool = false
 var locked_look: bool = false
 var can_grab: bool = true
 var in_dialoge: bool = false
@@ -83,12 +92,18 @@ var in_external_inventory: bool = false
 var can_jump: bool = true
 var can_play_stpe_left: bool = true
 var can_play_stpe_right: bool = true
-
+var can_lean_left:bool = true
+var can_lean_right:bool = true
+var can_head_boob:bool = true
 # Slide vars
 
 var slide_timer: float = 0.0
 var slide_timer_max: float = 1.0
 var slide_vector: Vector2 = Vector2.ZERO
+
+var last_player_y_lock: bool = false
+var last_player_y_pos:float = 0
+var cur_player_y_pos:float = 0
 
 # Head bobbing vars
 
@@ -150,7 +165,7 @@ func _ready():
 	inventory_interface.set_player_inventory_data(inventory_data)
 	for node in get_tree().get_nodes_in_group("external_inventory"):
 		node.toggle_inventory.connect(toggle_inventory_function)
-	super()
+#	super()
 
 
 func _input(event):
@@ -158,7 +173,7 @@ func _input(event):
 		if !locked_look:
 			if free_looking:
 				nek.rotate_y(deg_to_rad(-event.relative.x * mouse_sens))
-				nek.rotation.y = clamp(nek.rotation.y,deg_to_rad(-140),deg_to_rad(140))
+				nek.rotation.y = clamp(nek.rotation.y,deg_to_rad(-160),deg_to_rad(160))
 			else:
 				rotate_y(deg_to_rad(-event.relative.x * mouse_sens))
 			head.rotate_x(deg_to_rad(-event.relative.y * mouse_sens))
@@ -175,6 +190,10 @@ func _process(_delta: float) -> void:
 
 func _physics_process(delta):
 	var input_dir = Input.get_vector("left", "right", "forward", "back")
+	last_horizontal_pos = Vector2(position.x,position.z)
+	anti_in_wall_walking_ray.target_position= Vector3(input_dir.x,0,input_dir.y)
+	
+	
 	declare_moon_walk(input_dir)
 	
 	if Input.is_action_just_pressed("Light"):
@@ -223,8 +242,11 @@ func _physics_process(delta):
 	else:
 		unlean_func(delta)
 	if sliding:
+		if !last_player_y_lock:
+			last_player_y_pos = get_player_pos_y()
+			last_player_y_lock = true
 		slide_func(delta)
-
+	
 	# Add the gravity.
 	if not is_on_floor():
 		velocity.y -= gravity * delta
@@ -256,9 +278,11 @@ func _physics_process(delta):
 	last_velocity = velocity
 	
 	if !in_dialoge and !in_external_inventory:
-		handle_stairs()
+#		handle_stairs()
 		move_and_slide()
-
+		HV = Vector2((position.x-last_horizontal_pos.x)/delta ,(position.z-last_horizontal_pos.y)/delta).length()
+#		print(HV)
+		
 func toggle_inventory_function(external_inventory_owner = null)->void:
 	if !in_dialoge:
 		inventory_interface.visible = !inventory_interface.visible
@@ -337,6 +361,8 @@ func crouching_func(input_dir,delta) -> void:
 	head.position.y = lerp(head.position.y,crouching_depth,delta * lerp_speed)
 	standing_collision_shape.disabled = true
 	crouching_collision_shape.disabled = false
+	lean_area_detector_l.position.y = 0.8
+	lean_area_detector_r.position.y = 0.8
 	if sprinting and input_dir != Vector2.ZERO and is_on_floor() and slideable and !moon_walk:
 		sliding = true
 		slide_timer = slide_timer_max
@@ -351,10 +377,12 @@ func un_crouching_func(delta) -> void:
 	head.position.y = lerp(head.position.y,0.0,delta * lerp_speed)
 	standing_collision_shape.disabled = false
 	crouching_collision_shape.disabled = true
-
+	lean_area_detector_l.position.y = 1.7
+	lean_area_detector_r.position.y = 1.7
+	
 func sprint_state_func(delta) -> void:
 	current_speed = lerp(current_speed,sprinting_speed,delta * (lerp_speed/3))
-	if current_speed > 7.5:
+	if current_speed > 7.5 and HV>6:
 		slideable = true;
 	else:
 		slideable = false;
@@ -381,54 +409,65 @@ func unfree_look_func(delta) -> void:
 	eyes.rotation.z = lerp(eyes.rotation.z,deg_to_rad(0.0),delta * lerp_speed)
 
 func lean_func(delta) -> void:
-	leaning = true;
-	walking_speed = 2.0
-	if Input.is_action_pressed("leanL"):
-		lean_wall_detector.target_position = Vector3(-1,0,0) 
-		if lean_wall_detector.is_colliding():
-			nek.position.x = lerp(nek.position.x, -lean_pos_x, delta * lerp_speed/3)
-		else:
-			nek.position.x = lerp(nek.position.x, -lean_pos_x*1.5, delta * lerp_speed/3)
+
+	if Input.is_action_pressed("leanL") and can_lean_left and Input.is_action_pressed("leanR") and can_lean_right and !free_looking:
+		pass
+	elif Input.is_action_pressed("leanL") and can_lean_left and !free_looking:
+		leaning_left = true
+		nek.position.x = lerp(nek.position.x, -lean_pos_x*1.75, delta * lerp_speed/3)
 		nek.position.y = lerp(nek.position.y, lean_pos_y, delta * lerp_speed/3)
 		nek.rotation.z = lerp(nek.rotation.z,lean_rot_z,delta * lerp_speed/3)
-	if Input.is_action_pressed("leanR"):
-		lean_wall_detector.target_position = Vector3(1,0,0) 
-		if lean_wall_detector.is_colliding():
-			nek.position.x = lerp(nek.position.x, lean_pos_x, delta * lerp_speed/3)
-		else:
-			nek.position.x = lerp(nek.position.x, lean_pos_x*1.5, delta * lerp_speed/3)
+	elif Input.is_action_pressed("leanR") and can_lean_right and !free_looking:
+		leaning_right = true
+		nek.position.x = lerp(nek.position.x, lean_pos_x*1.75, delta * lerp_speed/3)
 		nek.position.y = lerp(nek.position.y, lean_pos_y, delta * lerp_speed/3)
 		nek.rotation.z = lerp(nek.rotation.z,-lean_rot_z,delta * lerp_speed/3)
+	else:
+		unlean_func(delta)
 
 func unlean_func(delta) -> void:
-	leaning = false;
-	walking_speed = 5.0
-	lean_wall_detector.target_position = Vector3(0,0,0) 
+
 	nek.position.x = lerp(nek.position.x, 0.0, delta * lerp_speed)
 	nek.position.y = lerp(nek.position.y, player_height, delta * lerp_speed)
 	nek.rotation.z = lerp(nek.rotation.z, deg_to_rad(0.0), delta * lerp_speed)
 
 func slide_func(delta) -> void:
-	slide_timer -= delta
+	cur_player_y_pos = get_player_pos_y()
+#	print(last_player_y_pos - cur_player_y_pos)
+#	Engine.time_scale = 0.3
+	if cur_player_y_pos > last_player_y_pos+0.1:
+		slide_timer -= delta * (1.5 + abs(last_player_y_pos - cur_player_y_pos))
+	else:
+		slide_timer -= delta
 	if slide_timer <= 0:
 		sliding = false
 		free_looking = false
+		last_player_y_lock = false
+#		Engine.time_scale = 1
+
+func get_player_pos_y() -> float:
+	return position.y
 
 func head_bobbing_and_steps(input_dir,delta) -> void:
-	if sprinting:
+#	print("hbob -> ",HV)
+	if HV > walking_speed + 0.5:
 		head_bobbing_current_intensity = head_bobbing_sprinting_intensity
 		head_bobbing_index += head_bobbing_sprinting_speed*delta
-	elif walking:
+	elif HV > crouching_speed+0.5 and HV < walking_speed + 0.5 :
 		head_bobbing_current_intensity = head_bobbing_walking_intensity
 		head_bobbing_index += head_bobbing_walking_speed*delta
-	elif crouching:
+	elif HV < crouching_speed + 0.5 :
 		head_bobbing_current_intensity = head_bobbing_crouching_intensity
 		head_bobbing_index += head_bobbing_crouching_speed*delta
-	if is_on_floor() && !sliding && input_dir!=Vector2.ZERO:
+	if is_on_floor() && !sliding && input_dir!=Vector2.ZERO and HV > 0.5 :
 		head_bobing_vector.y = sin(head_bobbing_index)
 		head_bobing_vector.x = sin(head_bobbing_index/2)+0.5
-		eyes.position.y = lerp(eyes.position.y,head_bobing_vector.y * (head_bobbing_current_intensity/2.0),delta * lerp_speed)
-		eyes.position.x = lerp(eyes.position.x,head_bobing_vector.x * (head_bobbing_current_intensity),delta * lerp_speed)
+		if can_head_boob: 
+			eyes.position.y = lerp(eyes.position.y,head_bobing_vector.y * (head_bobbing_current_intensity/2.0),delta * lerp_speed)
+			eyes.position.x = lerp(eyes.position.x,head_bobing_vector.x * (head_bobbing_current_intensity),delta * lerp_speed)
+		else:
+			eyes.position.y = lerp(eyes.position.y,0.0,delta * lerp_speed)
+			eyes.position.x = lerp(eyes.position.x,0.0,delta * lerp_speed)
 	else:
 		eyes.position.y = lerp(eyes.position.y,0.0,delta * lerp_speed)
 		eyes.position.x = lerp(eyes.position.x,0.0,delta * lerp_speed)
@@ -457,6 +496,7 @@ func landing_func() -> void:
 	elif last_velocity.y < -4.0:
 		animation_player.play("landing")
 		_play_sound(footsteps_sounds[randi() % footsteps_sounds.size()])
+
 
 func _play_sound(track:AudioStreamMP3):
 	var sound = sound_direct.instantiate()
@@ -490,7 +530,8 @@ func pick_object():
 	if picked_object == null:
 		hand.position.y = -0.7
 		var collider = interaction_grabbing_ray.get_collider()
-		if collider !=null and collider is RigidBody3D and collider.is_in_group("holdable") :
+		if collider !=null and collider is RigidBody3D and collider.is_in_group("holdable"):
+#			print("test")
 			picked_object = collider
 			joint.set_node_b(picked_object.get_path())
 			if collider.has_method("disable_collisions"):
@@ -541,6 +582,37 @@ func _on_anti_bunny_hop_timeout() -> void:
 	can_jump = true
 
 func _on_inventory_interface_drop_slot_data(slot_data) -> void:
-	var pick_up = PickUp.instantiate()
-	pick_up.slot_data = slot_data
+	send_pick_up_item_to_geometry.emit(slot_data,get_drop_position())
 
+func get_drop_position() -> Vector3:
+	var cam_dir = -main_camera_3d.global_transform.basis.z
+	return main_camera_3d.global_position+cam_dir 
+
+func _on_lean_area_detector_l_body_entered(_body: Node3D) -> void:
+#	print("L-wykrywa")
+	can_lean_left = false
+
+func _on_lean_area_detector_l_body_exited(_body: Node3D) -> void:
+#	print("L-NIE wykrywa")
+	can_lean_left = true
+
+func _on_lean_area_detector_r_body_entered(_body: Node3D) -> void:
+#	print("R-wykrywa")
+	can_lean_right = false
+
+func _on_lean_area_detector_r_body_exited(_body: Node3D) -> void:
+#	print("R-NIE wykrywa")
+	can_lean_right = true
+
+
+func _on_player_body_area_3d_area_entered(area: Area3D) -> void:
+		if area.is_in_group("Portal"):
+			position.x = 2.817
+			position.y = -17.517
+			position.z = 12.682
+
+func _on_anit_head_bump_body_entered(_body: Node3D) -> void:
+	can_head_boob = false
+
+func _on_anit_head_bump_body_exited(_body: Node3D) -> void:
+	can_head_boob = true

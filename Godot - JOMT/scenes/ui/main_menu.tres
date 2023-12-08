@@ -1,0 +1,45 @@
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://45421sp47ao"]
+
+[ext_resource type="FontFile" uid="uid://u4lkyl83fk2w" path="res://assets/fonts/LexendDeca-VariableFont_wght.ttf" id="1_50fwm"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y6xwl"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_color = Color(0.8, 0.8, 0.8, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0wli1"]
+content_margin_right = 6.0
+content_margin_bottom = 1.0
+bg_color = Color(0.733333, 0.458824, 0.231373, 0.87451)
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 13
+corner_radius_bottom_right = 13
+shadow_color = Color(0.219608, 0.435294, 0.807843, 0.776471)
+shadow_size = 1
+shadow_offset = Vector2(2, 3)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s65ev"]
+bg_color = Color(0.807843, 0.498039, 0.388235, 0.0196078)
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.807843, 0.498039, 0.388235, 1)
+corner_radius_bottom_right = 13
+expand_margin_right = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fbh6a"]
+bg_color = Color(0.219608, 0.435294, 0.807843, 0.776471)
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_bottom_right = 13
+shadow_color = Color(0.807843, 0.498039, 0.388235, 1)
+shadow_size = 1
+shadow_offset = Vector2(2, 3)
+
+[resource]
+default_font = ExtResource("1_50fwm")
+Button/font_sizes/font_size = 20
+Button/fonts/font = ExtResource("1_50fwm")
+Button/styles/focus = SubResource("StyleBoxFlat_y6xwl")
+Button/styles/hover = SubResource("StyleBoxFlat_0wli1")
+Button/styles/normal = SubResource("StyleBoxFlat_s65ev")
+Button/styles/pressed = SubResource("StyleBoxFlat_fbh6a")

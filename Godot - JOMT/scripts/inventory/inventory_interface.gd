@@ -61,4 +61,16 @@ func _on_gui_input(event: InputEvent) -> void:
 		match event.button_index:
 			MOUSE_BUTTON_LEFT:
 				drop_slot_data.emit(grabbed_slot_data)
-				print("drop data")
+				grabbed_slot_data = null
+			MOUSE_BUTTON_RIGHT:
+				drop_slot_data.emit(grabbed_slot_data.create_single_slot_data())
+				if grabbed_slot_data.qunatity < 1:
+					grabbed_slot_data = null
+		update_grabbed_slot()
+
+
+func _on_visibility_changed() -> void:
+	if not visible and grabbed_slot_data:
+		drop_slot_data.emit(grabbed_slot_data)
+		grabbed_slot_data = null
+		update_grabbed_slot()

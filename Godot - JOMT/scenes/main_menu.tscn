@@ -1,0 +1,153 @@
+[gd_scene load_steps=9 format=3 uid="uid://dqrxrvhgs6n5"]
+
+[ext_resource type="PackedScene" uid="uid://omp1qm7mg7vs" path="res://scenes/ui/mainMenuBackground.tscn" id="1_lg41k"]
+[ext_resource type="Theme" uid="uid://45421sp47ao" path="res://scenes/ui/main_menu.tres" id="1_rnymp"]
+[ext_resource type="Script" path="res://scenes/main_menu.gd" id="1_ueap6"]
+[ext_resource type="Script" path="res://scenes/MainMenu.gd" id="2_y4sck"]
+[ext_resource type="Environment" uid="uid://ddbuvg60s3ja" path="res://assets/env/base_env.tres" id="2_yhmj3"]
+
+[sub_resource type="Animation" id="Animation_vkn15"]
+resource_name = "kamera_lata"
+length = 60.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SubViewportContainer/SubViewport/Camera3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 15, 45, 60),
+"transitions": PackedFloat32Array(1, 2.37842, 2.46229, 1),
+"update": 0,
+"values": [Vector3(8, 10, 8), Vector3(8, 10, -8), Vector3(-8, 10, -8), Vector3(-8, 10, 8)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SubViewportContainer/SubViewport/Camera3D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 15, 45, 60),
+"transitions": PackedFloat32Array(1, 2.37842, 2.46229, 1),
+"update": 0,
+"values": [Vector3(-0.595157, 0.785398, 0), Vector3(-0.595157, 2.35619, 0), Vector3(-0.595157, 3.92699, 0), Vector3(-0.595157, 5.49779, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_u4h5g"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SubViewportContainer/SubViewport/Camera3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(8, 10, 8)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SubViewportContainer/SubViewport/Camera3D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.595157, 0.785398, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6d1kn"]
+_data = {
+"RESET": SubResource("Animation_u4h5g"),
+"kamera_lata": SubResource("Animation_vkn15")
+}
+
+[node name="MainMenu" type="CanvasLayer"]
+script = ExtResource("1_ueap6")
+
+[node name="Background" type="Node3D" parent="."]
+
+[node name="MainMenuBackground" parent="Background" instance=ExtResource("1_lg41k")]
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Background"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewport" type="SubViewport" parent="Background/SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(1280, 720)
+render_target_update_mode = 4
+
+[node name="Camera3D" type="Camera3D" parent="Background/SubViewportContainer/SubViewport"]
+transform = Transform3D(0.707107, -0.396432, 0.585527, 0, 0.82806, 0.560639, -0.707107, -0.396432, 0.585527, 8, 10, 8)
+environment = ExtResource("2_yhmj3")
+current = true
+fov = 49.5
+size = 9.284
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Background"]
+libraries = {
+"": SubResource("AnimationLibrary_6d1kn")
+}
+
+[node name="Menu" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_rnymp")
+script = ExtResource("2_y4sck")
+
+[node name="MarginContainer" type="MarginContainer" parent="Menu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 80
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 80
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu/MarginContainer"]
+layout_mode = 2
+
+[node name="GameTitle" type="Label" parent="Menu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 69
+text = "JOMT - the game"
+
+[node name="Start" type="Button" parent="Menu/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 34
+text = "Start"
+
+[node name="HSeparator" type="HSeparator" parent="Menu/MarginContainer/VBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Exit" type="Button" parent="Menu/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 28
+text = "Wyjdź"
+
+[connection signal="pressed" from="Menu/MarginContainer/VBoxContainer/Start" to="Menu" method="_on_start_pressed"]
+[connection signal="pressed" from="Menu/MarginContainer/VBoxContainer/Exit" to="Menu" method="_on_exit_pressed"]

@@ -1,0 +1,14 @@
+[remap]
+
+importer="qodot.map"
+type="Resource"
+uid="uid://c76mgdffe615u"
+path="res://.godot/imported/TrenchBroomTest.44.map-7a4cddabd90a9ea1d0674e8b329fab9e.tres"
+
+[deps]
+
+source_file="res://maps/autosave/TrenchBroomTest.44.map"
+dest_files=["res://.godot/imported/TrenchBroomTest.44.map-7a4cddabd90a9ea1d0674e8b329fab9e.tres"]
+
+[params]
+

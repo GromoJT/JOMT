@@ -11,8 +11,8 @@ config_version=5
 [application]
 
 config/name="JOMT"
-run/main_scene="res://scenes/Levels/Master_1.tscn"
-config/features=PackedStringArray("4.1", "Forward Plus")
+run/main_scene="res://scenes/main_menu.tscn"
+config/features=PackedStringArray("4.2", "C#", "Forward Plus")
 boot_splash/fullsize=false
 boot_splash/use_filter=false
 config/icon="res://icon.svg"
@@ -21,13 +21,23 @@ config/icon="res://icon.svg"
 
 DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
 
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/stretch/mode="canvas_items"
+
+[dotnet]
+
+project/assembly_name="JOMT"
+
 [editor]
 
 version_control/autoload_on_startup=true
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/dialogue_manager/plugin.cfg")
+enabled=PackedStringArray("res://addons/dialogue_manager/plugin.cfg", "res://addons/qodot/plugin.cfg")
 
 [input]
 
@@ -107,7 +117,7 @@ Light={
 }
 inventory={
 "deadzone": 0.5,
-"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194306,"key_label":0,"unicode":0,"echo":false,"script":null)
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194329,"key_label":0,"unicode":0,"echo":false,"script":null)
 ]
 }
 
@@ -125,10 +135,12 @@ locale/translations_pot_files=PackedStringArray("res://dialogs/test.dialogue", "
 
 [rendering]
 
-textures/canvas_textures/default_texture_filter=3
-textures/lossless_compression/force_png=true
-textures/webp_compression/compression_method=0
+textures/canvas_textures/default_texture_filter=0
 textures/default_filters/use_nearest_mipmap_filter=true
-textures/default_filters/anisotropic_filtering_level=4
-textures/decals/filter=0
-textures/light_projectors/filter=0
+textures/default_filters/anisotropic_filtering_level=3
+textures/decals/filter=2
+textures/light_projectors/filter=2
+anti_aliasing/quality/msaa_3d=2
+anti_aliasing/quality/screen_space_aa=1
+anti_aliasing/quality/use_taa=true
+anti_aliasing/quality/use_debanding=true

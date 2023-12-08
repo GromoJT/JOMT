@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="QodotFGDFile" load_steps=7 format=3 uid="uid://ccma3a764iroy"]
+
+[ext_resource type="Script" path="res://addons/qodot/src/resources/game-definitions/fgd/qodot_fgd_file.gd" id="1_31ogi"]
+[ext_resource type="Resource" uid="uid://c36hv0o6g0udo" path="res://addons/qodot/game_definitions/fgd/qodot_fgd.tres" id="1_u4eqa"]
+[ext_resource type="Resource" uid="uid://o667hs6133xj" path="res://definitions/mylight_point.tres" id="2_vmq5t"]
+[ext_resource type="Resource" uid="uid://b53wt47lqdhic" path="res://definitions/my_movable_solid.tres" id="3_6qlyo"]
+[ext_resource type="Script" path="res://addons/qodot/src/resources/game-definitions/fgd/qodot_fgd_base_class.gd" id="5_uxkc5"]
+
+[sub_resource type="Resource" id="Resource_1tmg8"]
+script = ExtResource("5_uxkc5")
+classname = "clip_brush"
+description = "test_clip_brush"
+qodot_internal = false
+base_classes = Array[Resource]([])
+class_properties = {}
+class_property_descriptions = {}
+meta_properties = {
+"color": Color(0.8, 0.8, 0.8, 1),
+"size": AABB(-8, -8, -8, 8, 8, 8)
+}
+node_class = "CollisionShape3D"
+transient_node = false
+
+[resource]
+script = ExtResource("1_31ogi")
+export_file = false
+target_folder = ""
+fgd_name = "JOMT"
+base_fgd_files = Array[Resource]([ExtResource("1_u4eqa")])
+entity_definitions = Array[Resource]([ExtResource("2_vmq5t"), ExtResource("3_6qlyo"), SubResource("Resource_1tmg8")])

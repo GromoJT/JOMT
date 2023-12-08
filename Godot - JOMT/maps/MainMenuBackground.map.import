@@ -1,0 +1,14 @@
+[remap]
+
+importer="qodot.map"
+type="Resource"
+uid="uid://cxhp52axqe2er"
+path="res://.godot/imported/MainMenuBackground.map-8ae859230bc5f62bfd70e583f34aabc1.tres"
+
+[deps]
+
+source_file="res://maps/MainMenuBackground.map"
+dest_files=["res://.godot/imported/MainMenuBackground.map-8ae859230bc5f62bfd70e583f34aabc1.tres"]
+
+[params]
+

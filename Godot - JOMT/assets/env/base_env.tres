@@ -1,3 +1,6 @@
 [gd_resource type="Environment" format=3 uid="uid://ddbuvg60s3ja"]
 
 [resource]
+background_energy_multiplier = 0.85
+glow_strength = 2.0
+glow_blend_mode = 0

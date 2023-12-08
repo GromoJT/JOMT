@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="QodotFGDSolidClass" load_steps=2 format=3 uid="uid://b53wt47lqdhic"]
+
+[ext_resource type="Script" path="res://addons/qodot/src/resources/game-definitions/fgd/qodot_fgd_solid_class.gd" id="1_mmeqq"]
+
+[resource]
+script = ExtResource("1_mmeqq")
+spawn_type = 2
+build_visuals = true
+collision_shape_type = 1
+classname = "movable_solid"
+description = "testowy brush do łatwiejszego przemieszczania w godot"
+qodot_internal = false
+base_classes = Array[Resource]([])
+class_properties = {}
+class_property_descriptions = {}
+meta_properties = {
+"color": Color(0.8, 0.8, 0.8, 1),
+"size": AABB(-8, -8, -8, 8, 8, 8)
+}
+node_class = "AnimatableBody3D"
+transient_node = false

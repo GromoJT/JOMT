@@ -1,0 +1,14 @@
+[remap]
+
+importer="qodot.map"
+type="Resource"
+uid="uid://d1dw73rtypf0p"
+path="res://.godot/imported/staircase.map-33b86a76062f2ddca4e1337b6d821afd.tres"
+
+[deps]
+
+source_file="res://maps/staircase.map"
+dest_files=["res://.godot/imported/staircase.map-33b86a76062f2ddca4e1337b6d821afd.tres"]
+
+[params]
+
