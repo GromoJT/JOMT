@@ -53,6 +53,7 @@ extends CharacterBody3D
 @onready var grab_delay:Timer = $Grab_delay
 @onready var talk_timer: Timer = $Talk_timer
 @onready var anti_bunny_hop: Timer = $AntiBunnyHop
+@onready var anti_slide: Timer = $AntiSlide
 
 #---SIGNALS---#
 signal send_pick_up_item_to_geometry(slotData:SlotData,position:Vector3)
@@ -100,7 +101,7 @@ var can_head_boob:bool = true
 var slide_timer: float = 0.0
 var slide_timer_max: float = 1.0
 var slide_vector: Vector2 = Vector2.ZERO
-
+var anti_slide_timer_finished:bool = true;
 var last_player_y_lock: bool = false
 var last_player_y_pos:float = 0
 var cur_player_y_pos:float = 0
@@ -382,7 +383,7 @@ func un_crouching_func(delta) -> void:
 	
 func sprint_state_func(delta) -> void:
 	current_speed = lerp(current_speed,sprinting_speed,delta * (lerp_speed/3))
-	if current_speed > 7.5 and HV>6:
+	if current_speed > 7.5 and HV>6 and anti_slide_timer_finished:
 		slideable = true;
 	else:
 		slideable = false;
@@ -435,6 +436,8 @@ func slide_func(delta) -> void:
 	cur_player_y_pos = get_player_pos_y()
 #	print(last_player_y_pos - cur_player_y_pos)
 #	Engine.time_scale = 0.3
+	anti_slide.start()
+	anti_slide_timer_finished = false;
 	if cur_player_y_pos > last_player_y_pos+0.1:
 		slide_timer -= delta * (1.5 + abs(last_player_y_pos - cur_player_y_pos))
 	else:
@@ -616,3 +619,7 @@ func _on_anit_head_bump_body_entered(_body: Node3D) -> void:
 
 func _on_anit_head_bump_body_exited(_body: Node3D) -> void:
 	can_head_boob = true
+
+
+func _on_anti_slide_timeout() -> void:
+	anti_slide_timer_finished = true;

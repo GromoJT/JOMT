@@ -1,0 +1,14 @@
+[remap]
+
+importer="qodot.map"
+type="Resource"
+uid="uid://cu4v70vq0nsv4"
+path="res://.godot/imported/moreBruses.map-a8c347e57f9112e6e3c4e90086452ff1.tres"
+
+[deps]
+
+source_file="res://maps/moreBruses.map"
+dest_files=["res://.godot/imported/moreBruses.map-a8c347e57f9112e6e3c4e90086452ff1.tres"]
+
+[params]
+

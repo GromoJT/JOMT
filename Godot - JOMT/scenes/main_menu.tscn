@@ -6,6 +6,33 @@
 [ext_resource type="Script" path="res://scenes/MainMenu.gd" id="2_y4sck"]
 [ext_resource type="Environment" uid="uid://ddbuvg60s3ja" path="res://assets/env/base_env.tres" id="2_yhmj3"]
 
+[sub_resource type="Animation" id="Animation_u4h5g"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SubViewportContainer/SubViewport/Camera3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(8, 10, 8)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SubViewportContainer/SubViewport/Camera3D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.595157, 0.785398, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_vkn15"]
 resource_name = "kamera_lata"
 length = 60.0
@@ -35,33 +62,6 @@ tracks/1/keys = {
 "values": [Vector3(-0.595157, 0.785398, 0), Vector3(-0.595157, 2.35619, 0), Vector3(-0.595157, 3.92699, 0), Vector3(-0.595157, 5.49779, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_u4h5g"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("SubViewportContainer/SubViewport/Camera3D:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(8, 10, 8)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("SubViewportContainer/SubViewport/Camera3D:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(-0.595157, 0.785398, 0)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_6d1kn"]
 _data = {
 "RESET": SubResource("Animation_u4h5g"),
@@ -88,7 +88,7 @@ size = Vector2i(1280, 720)
 render_target_update_mode = 4
 
 [node name="Camera3D" type="Camera3D" parent="Background/SubViewportContainer/SubViewport"]
-transform = Transform3D(0.707107, -0.396432, 0.585527, 0, 0.82806, 0.560639, -0.707107, -0.396432, 0.585527, 8, 10, 8)
+transform = Transform3D(0.707107, -0.396431, 0.585527, 0, 0.82806, 0.560639, -0.707107, -0.396431, 0.585527, 8, 10, 8)
 environment = ExtResource("2_yhmj3")
 current = true
 fov = 49.5
