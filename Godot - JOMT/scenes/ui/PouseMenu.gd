@@ -33,3 +33,10 @@ func _on_button_pressed() -> void:
 func _on_button_2_pressed() -> void:
 	get_tree().paused = false
 	get_tree().reload_current_scene();
+
+
+func _on_save_pressed() -> void:
+	var pd : PlayerData = PlayerData.new()
+	print(get_parent().get_parent().get_parent().get_node("Player").get_global_position())
+	pd.global_position = get_parent().get_parent().get_parent().get_node("Player").get_global_position()
+	Globals.save_data(Globals.SAVE_DIR + Globals.SAVE_FILE_NAME,pd)

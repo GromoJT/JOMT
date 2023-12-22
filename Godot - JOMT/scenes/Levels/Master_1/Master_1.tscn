@@ -1,13 +1,13 @@
 [gd_scene load_steps=20 format=3 uid="uid://d3e3se5wxiyho"]
 
-[ext_resource type="Script" path="res://scenes/Levels/Master_1.gd" id="1_4kikw"]
+[ext_resource type="Script" path="res://scenes/Levels/Master_1/Master_1.gd" id="1_4kikw"]
 [ext_resource type="Environment" uid="uid://ddbuvg60s3ja" path="res://assets/env/base_env.tres" id="1_bjada"]
 [ext_resource type="PackedScene" uid="uid://38q4fe3wbosk" path="res://scenes/player/player_advance.tscn" id="2_hnyxl"]
-[ext_resource type="PackedScene" uid="uid://rhuk72q00jyv" path="res://scenes/Levels/QodotLevels/qodot_test_level.tscn" id="4_kxupu"]
+[ext_resource type="PackedScene" uid="uid://rhuk72q00jyv" path="res://scenes/Levels/QodotLevelTester/qodot_test_level.tscn" id="4_kxupu"]
 [ext_resource type="Texture2D" uid="uid://ce30i6ihtgnwr" path="res://assets/textures/monster/Monster_frames.png" id="5_j8rcv"]
-[ext_resource type="Script" path="res://scenes/Levels/RigidBody3D.gd" id="6_2yspl"]
+[ext_resource type="Script" path="res://scenes/Levels/Master_1/RigidBody3D.gd" id="6_2yspl"]
 [ext_resource type="AudioStream" uid="uid://ccmrn7doglv1h" path="res://audio/ghost.mp3" id="6_sc5sq"]
-[ext_resource type="Script" path="res://scenes/Levels/Monster_1.gd" id="7_nel80"]
+[ext_resource type="Script" path="res://scenes/Levels/Master_1/Monster_1.gd" id="7_nel80"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_sre2x"]
 size = Vector3(4, 1, 2)
@@ -129,12 +129,10 @@ shape = SubResource("CapsuleShape3D_qao4a")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -12, 20)
+visible = false
 stream = ExtResource("6_sc5sq")
 volume_db = -10.9
 max_db = 1.047
 
-[node name="items" type="Node3D" parent="."]
-
-[connection signal="send_pick_up_item_to_geometry" from="Player" to="." method="_on_player_send_pick_up_item_to_geometry"]
 [connection signal="area_entered" from="World/Area3D" to="." method="_on_area_3d_area_entered"]
 [connection signal="area_entered" from="World/Area3DMonsterQuit" to="." method="_on_area_3d_monster_quit_area_entered"]

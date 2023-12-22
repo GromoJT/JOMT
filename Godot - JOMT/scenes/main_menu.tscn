@@ -140,6 +140,18 @@ text = "Start"
 modulate = Color(1, 1, 1, 0)
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 2
+
+[node name="Wczytaj" type="Button" parent="Menu/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 34
+text = "Wczytaj"
+
+[node name="HSeparator2" type="HSeparator" parent="Menu/MarginContainer/VBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
 size_flags_vertical = 3
 
 [node name="Exit" type="Button" parent="Menu/MarginContainer/VBoxContainer"]
@@ -150,4 +162,5 @@ theme_override_font_sizes/font_size = 28
 text = "Wyjdź"
 
 [connection signal="pressed" from="Menu/MarginContainer/VBoxContainer/Start" to="Menu" method="_on_start_pressed"]
+[connection signal="pressed" from="Menu/MarginContainer/VBoxContainer/Wczytaj" to="Menu" method="_on_wczytaj_pressed"]
 [connection signal="pressed" from="Menu/MarginContainer/VBoxContainer/Exit" to="Menu" method="_on_exit_pressed"]

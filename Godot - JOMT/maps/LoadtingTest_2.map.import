@@ -1,0 +1,14 @@
+[remap]
+
+importer="qodot.map"
+type="Resource"
+uid="uid://c174i8uswge6t"
+path="res://.godot/imported/LoadtingTest_2.map-539d146c3730112451baa5d8addf1f6d.tres"
+
+[deps]
+
+source_file="res://maps/LoadtingTest_2.map"
+dest_files=["res://.godot/imported/LoadtingTest_2.map-539d146c3730112451baa5d8addf1f6d.tres"]
+
+[params]
+

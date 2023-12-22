@@ -193,6 +193,8 @@ func _physics_process(delta):
 	var input_dir = Input.get_vector("left", "right", "forward", "back")
 	last_horizontal_pos = Vector2(position.x,position.z)
 	anti_in_wall_walking_ray.target_position= Vector3(input_dir.x,0,input_dir.y)
+	#print(input_dir.x)
+	
 	
 	
 	declare_moon_walk(input_dir)
@@ -209,7 +211,7 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("interact") and !in_dialoge and !inventory_interface.visible:
 		try_interact()
 		
-	# Handle pikingfings up
+	# Handle piking things up
 	if Input.is_action_pressed("interact"):
 		base_interaction()
 
@@ -242,6 +244,12 @@ func _physics_process(delta):
 		lean_func(delta)
 	else:
 		unlean_func(delta)
+		
+		if input_dir.x != 0 and can_lean_left and can_lean_right:
+			main_camera_3d.rotation.z = lerp(main_camera_3d.rotation.z,-lean_rot_z/3 * input_dir.x,delta * lerp_speed/3)
+		else:	
+			main_camera_3d.rotation.z = lerp(main_camera_3d.rotation.z,0.0,delta * lerp_speed/3)
+		
 	if sliding:
 		if !last_player_y_lock:
 			last_player_y_pos = get_player_pos_y()
@@ -585,7 +593,8 @@ func _on_anti_bunny_hop_timeout() -> void:
 	can_jump = true
 
 func _on_inventory_interface_drop_slot_data(slot_data) -> void:
-	send_pick_up_item_to_geometry.emit(slot_data,get_drop_position())
+	#send_pick_up_item_to_geometry.emit(slot_data,get_drop_position())
+	Globals.player_send_pick_up_item_to_geometry(slot_data,get_drop_position())
 
 func get_drop_position() -> Vector3:
 	var cam_dir = -main_camera_3d.global_transform.basis.z

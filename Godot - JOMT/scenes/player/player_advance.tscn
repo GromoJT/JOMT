@@ -366,7 +366,7 @@ offset_right = 64.0
 offset_bottom = 64.0
 
 [node name="AntiBunnyHop" type="Timer" parent="."]
-wait_time = 2.0
+wait_time = 0.5
 one_shot = true
 
 [node name="Lean_area_detector_L" type="Area3D" parent="."]
@@ -393,6 +393,9 @@ shape = SubResource("CapsuleShape3D_cpxp4")
 
 [node name="AntiSlide" type="Timer" parent="."]
 wait_time = 2.0
+
+[node name="CoyoteTime" type="Timer" parent="."]
+wait_time = 0.25
 
 [connection signal="body_entered" from="Nek/Head/Eyes/MainCamera3D/Drop_check" to="." method="_on_drop_check_body_entered"]
 [connection signal="body_exited" from="Nek/Head/Eyes/MainCamera3D/Drop_check" to="." method="_on_drop_check_body_exited"]
