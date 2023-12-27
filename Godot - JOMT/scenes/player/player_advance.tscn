@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://38q4fe3wbosk"]
+[gd_scene load_steps=28 format=3 uid="uid://38q4fe3wbosk"]
 
 [ext_resource type="Script" path="res://scripts/Player_new.gd" id="1_np2gy"]
 [ext_resource type="Resource" uid="uid://7b7v14vpih74" path="res://scripts/inventory/test_inv.tres" id="2_cgpdo"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://dfl7x3uihwmiu" path="res://scenes/ui/ui.tscn" id="7_6cgp5"]
 [ext_resource type="PackedScene" uid="uid://b3738oe1wrvpl" path="res://scripts/inventory/inventory.tscn" id="8_7k8v8"]
 [ext_resource type="PackedScene" uid="uid://6fin8skkxlbd" path="res://scenes/ui/PouseMenu.tscn" id="8_breth"]
+[ext_resource type="PackedScene" uid="uid://cj7m07utn0lq8" path="res://scenes/player/gun_cam.tscn" id="8_giavv"]
 [ext_resource type="Script" path="res://scripts/inventory/inventory_interface.gd" id="10_cd8uk"]
 [ext_resource type="PackedScene" uid="uid://82xk6ankj3xh" path="res://scripts/inventory/slot.tscn" id="12_m3xar"]
 
@@ -213,7 +214,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 [node name="Eyes" type="Node3D" parent="Nek/Head"]
 
 [node name="MainCamera3D" type="Camera3D" parent="Nek/Head/Eyes"]
-cull_mask = 1048573
+cull_mask = 1048569
 environment = ExtResource("6_whw3m")
 fov = 90.0
 
@@ -238,6 +239,7 @@ node_a = NodePath("../SB_for_grabbed_item")
 linear_limit_x/enabled = false
 linear_limit_y/enabled = false
 linear_limit_z/enabled = false
+linear_limit_z/damping = 0.01
 
 [node name="SB_for_grabbed_item" type="StaticBody3D" parent="Nek/Head/Eyes/MainCamera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5)
@@ -261,11 +263,7 @@ positional_shadow_atlas_16_bits = false
 size = Vector2i(1280, 720)
 render_target_update_mode = 4
 
-[node name="GunCam" type="Camera3D" parent="Nek/Head/Eyes/MainCamera3D/SubViewportContainer/SubViewport"]
-visible = false
-cull_mask = 2
-environment = ExtResource("6_whw3m")
-fov = 90.0
+[node name="GunCam" parent="Nek/Head/Eyes/MainCamera3D/SubViewportContainer/SubViewport" instance=ExtResource("8_giavv")]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Nek/Head/Eyes"]
 root_node = NodePath("../MainCamera3D")

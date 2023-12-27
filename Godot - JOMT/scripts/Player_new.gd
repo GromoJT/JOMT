@@ -148,7 +148,7 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 # grab interaction
 var picked_object
-var pull_power = 10
+var pull_power = 25
 var rotation_power = 2
 var can_drop = true
 @onready var sub_viewport: SubViewport = $Nek/Head/Eyes/MainCamera3D/SubViewportContainer/SubViewport

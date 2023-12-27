@@ -96,11 +96,11 @@ theme_override_constants/margin_bottom = 8
 layout_mode = 2
 text = "JOMT v0.05 - 08.12.23
 WASD - poruszanie się
-SPACE - skos
+SPACE - skok
 SHIFT - sprint
 alt - kucanie / wślizg
 Q, E - wychylenie kamery
-Capslock - Inwentarz
+Tab - Inwentarz
 interakcja - LPM
 Obrót obiektu / wolna kamera  - ŚPM
 Rzut - PRM
