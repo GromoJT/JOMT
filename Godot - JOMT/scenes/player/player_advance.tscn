@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://38q4fe3wbosk"]
+[gd_scene load_steps=35 format=3 uid="uid://38q4fe3wbosk"]
 
 [ext_resource type="Script" path="res://scripts/Player_new.gd" id="1_np2gy"]
 [ext_resource type="Resource" uid="uid://7b7v14vpih74" path="res://scripts/inventory/test_inv.tres" id="2_cgpdo"]
@@ -200,12 +200,15 @@ height = 1.0
 radius = 0.25
 height = 1.1
 
-[sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_k5nve"]
+[sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_dssxp"]
 length = 0.3
+
+[sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_oti7l"]
+length = 0.35
+slide_on_slope = true
 
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 18
-collision_mask = 3
 script = ExtResource("1_np2gy")
 inventory_data = ExtResource("2_cgpdo")
 footsteps_sounds = Array[AudioStreamMP3]([ExtResource("2_rcht0"), ExtResource("3_wlqrp"), ExtResource("4_0keiq"), ExtResource("5_1plv1")])
@@ -219,7 +222,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_ixnuc")
 
 [node name="RayCastCrouching" type="RayCast3D" parent="."]
-target_position = Vector3(0, 2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+target_position = Vector3(0, 1.9, 0)
 
 [node name="Nek" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
@@ -246,20 +250,13 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.
 shape = SubResource("CapsuleShape3D_yaf0k")
 
 [node name="Double_Drop_check" type="RayCast3D" parent="Nek/Head/Eyes/MainCamera3D"]
-enabled = false
 target_position = Vector3(0, 0, -1.5)
 
 [node name="Hand" type="Marker3D" parent="Nek/Head/Eyes/MainCamera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.3, -1.3)
 
-[node name="Generic6DOFJoint3D" type="Generic6DOFJoint3D" parent="Nek/Head/Eyes/MainCamera3D"]
+[node name="Generic6DOFJoint3D" type="JoltGeneric6DOFJoint3D" parent="Nek/Head/Eyes/MainCamera3D"]
 node_a = NodePath("../SB_for_grabbed_item")
-linear_limit_x/softness = 0.01
-linear_limit_x/damping = 0.01
-linear_limit_y/softness = 0.01
-linear_limit_y/damping = 0.01
-linear_limit_z/softness = 0.01
-linear_limit_z/damping = 0.01
 
 [node name="SB_for_grabbed_item" type="StaticBody3D" parent="Nek/Head/Eyes/MainCamera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5)
@@ -435,50 +432,61 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Areas/PlayerBodyArea3D"]
 shape = SubResource("CapsuleShape3D_cpxp4")
 
+[node name="Area3D" type="Area3D" parent="Areas"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Areas/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.22465)
+shape = SubResource("SeparationRayShape3D_dssxp")
+
 [node name="UpstairsColisionShape" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.35, -0.358878)
-shape = SubResource("SeparationRayShape3D_k5nve")
+shape = SubResource("SeparationRayShape3D_oti7l")
 
 [node name="RayCast3D" type="RayCast3D" parent="UpstairsColisionShape"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
-enabled = false
-target_position = Vector3(0, -0.35, 0)
+target_position = Vector3(0, -0.4, 0)
+hit_from_inside = true
+hit_back_faces = false
 
 [node name="UpstairsColisionShapeL" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.35, -0.358878)
-shape = SubResource("SeparationRayShape3D_k5nve")
+shape = SubResource("SeparationRayShape3D_oti7l")
 
 [node name="RayCast3D2" type="RayCast3D" parent="UpstairsColisionShapeL"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
-enabled = false
-target_position = Vector3(0, -0.35, 0)
+target_position = Vector3(0, -0.4, 0)
+hit_from_inside = true
+hit_back_faces = false
 
 [node name="UpstairsColisionShapeL2" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.35, -0.358878)
-shape = SubResource("SeparationRayShape3D_k5nve")
+shape = SubResource("SeparationRayShape3D_oti7l")
 
 [node name="RayCast3D3" type="RayCast3D" parent="UpstairsColisionShapeL2"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
-enabled = false
-target_position = Vector3(0, -0.35, 0)
+target_position = Vector3(0, -0.4, 0)
+hit_from_inside = true
+hit_back_faces = false
 
 [node name="UpstairsColisionShapeR" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.35, -0.358878)
-shape = SubResource("SeparationRayShape3D_k5nve")
+shape = SubResource("SeparationRayShape3D_oti7l")
 
 [node name="RayCast3D4" type="RayCast3D" parent="UpstairsColisionShapeR"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
-enabled = false
-target_position = Vector3(0, -0.35, 0)
+target_position = Vector3(0, -0.4, 0)
+hit_from_inside = true
+hit_back_faces = false
 
 [node name="UpstairsColisionShapeR2" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.35, -0.358878)
-shape = SubResource("SeparationRayShape3D_k5nve")
+shape = SubResource("SeparationRayShape3D_oti7l")
 
 [node name="RayCast3D5" type="RayCast3D" parent="UpstairsColisionShapeR2"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
-enabled = false
-target_position = Vector3(0, -0.35, 0)
+target_position = Vector3(0, -0.4, 0)
+hit_from_inside = true
+hit_back_faces = false
 
 [connection signal="body_entered" from="Nek/Head/Eyes/MainCamera3D/Drop_check" to="." method="_on_drop_check_body_entered"]
 [connection signal="body_exited" from="Nek/Head/Eyes/MainCamera3D/Drop_check" to="." method="_on_drop_check_body_exited"]

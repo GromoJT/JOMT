@@ -72,6 +72,33 @@ shadow_mesh = SubResource("ArrayMesh_iliwm")
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_4wkfj"]
 points = PackedVector3Array(0.961666, -4.09492, -0.767046, 0.990854, -5.43494, -0.422862, -8.70243, -4.00128, -0.285564, -10.0334, -2.16884, -0.338226, 0.836159, 5.44828, -0.375842, 6.12792, 3.94036, -0.242306, 5.38655, -4.99257, -0.411577, 4.89327, -5.89022, -0.148266, -5.00141, -5.44947, 0.376474, -9.24825, -5.02325, 0.449824, -11.7351, -4.32095, 0.48744, -12.9318, -2.08005, 0.254222, -13.1623, 0.222204, 0.459228, -10.2114, 0.740453, 0.0360508, -4.44101, 5.53869, -0.120055, -4.61905, 7.00787, 0.410328, 0.570549, 6.96105, 0.218487, 6.05495, 5.40146, 0.169587, 6.34099, 0.378809, -0.215975, 8.9212, 2.75048, 0.671757, 8.92703, -3.51048, 0.329454, 8.30533, -5.28318, 0.288077, -0.912193, -7.65808, 6.19375, -5.43047, -7.09301, 4.67031, -10.118, -6.42139, 3.19578, 7.32462, -6.01938, 0.483678, -12.4151, -5.15725, 2.48672, -13.5213, -3.74619, 1.84537, -14.4087, -2.0187, 1.81904, -14.9282, 0.585463, 1.75885, -14.5196, 1.80924, 1.62344, -12.6603, 5.2384, 1.82844, -10.1998, 5.6953, 0.959518, -8.70243, 6.28297, 0.794009, -9.25117, 7.11927, 2.01652, -10.1443, 8.16868, 4.32425, -11.0929, 8.70146, 5.93044, -4.60738, 7.46638, 1.89051, 0.985018, 7.22098, 1.77766, 6.48109, 5.818, 1.86418, 8.36954, 4.04368, 0.89181, 9.0467, 4.24065, 2.54878, 9.86688, 2.52607, 2.5958, 9.3415, 0.982625, 0.867359, 12.1552, -3.17951, 11.1967, 11.6473, -5.062, 10.6155, 11.2942, -6.68939, 12.8066, -0.812956, -7.69037, 7.15296, -4.60154, -7.65324, 7.73788, 7.83541, -7.3255, 12.0449, 6.13959, -7.46111, 11.7703, -9.49342, -6.92026, 6.95171, -12.7274, -5.43817, 5.94549, 10.2288, -6.92834, 12.4079, -14.5488, -3.75588, 4.50104, -15.9615, -1.56341, 4.66467, -16.6153, 1.37656, 3.80327, -16.6853, 2.53253, 3.75061, -16.2621, 4.35366, 3.69983, -11.4636, 6.51061, 2.00524, -15.3164, 6.73018, 4.55747, -13.7928, 7.84579, 4.82078, -13.7986, 8.13155, 6.47023, -9.94292, 8.80318, 9.01305, -3.64126, 7.90552, 9.15223, 1.53959, 6.92715, 10.7265, 7.03274, 5.86482, 4.54054, 9.72386, 4.6814, 4.94303, 12.3887, -1.14203, 11.6085, 12.5201, -3.22794, 12.7822, 11.8195, -5.59155, 12.532, 12.0268, -1.82496, 15.0617, 10.8476, -3.3006, 16.0397, 9.73262, -5.15241, 16.1318, 8.22069, -6.01615, 15.3175, 7.29835, -7.28029, 13.0586, 5.82436, -7.50632, 12.5358, -4.38263, -7.31097, 9.23687, -8.59152, -6.61674, 9.65252, -12.275, -5.6755, 9.18985, -14.6976, -3.88019, 7.63632, -15.8885, -1.87985, 8.05385, -17.2866, 2.28551, 6.40252, -17.2983, 2.38561, 5.02202, -16.7904, 4.72661, 4.87156, -15.3748, 6.97881, 6.31036, -14.6071, 6.88517, 8.86635, -12.5348, 8.20097, 9.34595, -10.407, 7.30332, 12.9213, -6.93365, 7.53258, 12.9984, -4.01194, 7.80543, 11.2756, 10.0449, 4.59422, 18.4471, 9.78224, 4.74921, 7.13603, 12.199, -0.578578, 12.5508, 12.5142, -1.66351, 13.2467, 12.3245, -1.63768, 14.1852, 11.2124, -1.82819, 16.0322, 9.07881, -0.80945, 17.6929, 8.54175, -4.33386, 16.7281, 7.06485, -5.74331, 16.0961, 5.56459, -5.95965, 16.0115, -8.56817, -6.0436, 11.1402, -11.3147, -4.9732, 11.7759, -14.038, -3.86405, 9.87446, -15.2931, 1.22318, 12.0411, -16.77, 2.25322, 8.48267, -14.934, -1.88954, 10.796, -16.7991, 4.73952, 6.25958, -15.976, 4.79603, 8.78172, -14.3182, 4.39725, 12.4436, -12.707, 6.32817, 12.675, -7.52324, 5.51609, 15.5149, -10.7514, 5.65655, 14.5162, 0.439203, -4.38068, 17.5556, 7.94048, -1.63122, 17.6722, -9.54596, 3.69334, 15.9419, -6.79647, 2.70043, 16.3707, -10.515, -4.39198, 13.1263, -12.1524, -3.31674, 13.2712, -12.6516, -1.33416, 13.8693, -14.0759, 1.94809, 13.6736, -15.0245, 2.60518, 12.3665, -12.9463, 4.22612, 13.9219, -9.97502, 1.93517, 15.9513, -10.7894, -2.13171, 14.6742, -12.2663, 2.14182, 14.8341)
 
+[sub_resource type="Animation" id="Animation_nk13a"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BigDingus:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-25.2654, -2.61167, 32.4383)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BigDingus:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-1.30439, 2.46989, -0.702955)]
+}
+
 [sub_resource type="Animation" id="Animation_ahq3l"]
 resource_name = "catScare"
 length = 2.67
@@ -98,33 +125,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector3(-1.30439, 2.7844, -0.702955), Vector3(-1.30439, 2.46989, -0.702955)]
-}
-
-[sub_resource type="Animation" id="Animation_nk13a"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("BigDingus:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(-25.2654, -2.61167, 32.4383)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("BigDingus:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(-1.30439, 2.46989, -0.702955)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_eqysk"]
@@ -179,7 +179,7 @@ transform = Transform3D(-0.258819, 0, 0.965926, 0, 1, 0, -0.965926, 0, -0.258819
 
 [node name="cube" type="RigidBody3D" parent="World/Interactabels"]
 transform = Transform3D(-0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, -0.258819, -2, 5, 0)
-collision_layer = 4
+collision_layer = 5
 collision_mask = 5
 mass = 15.0
 physics_material_override = SubResource("PhysicsMaterial_bttex")
@@ -199,6 +199,33 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 5, -3)
 [node name="Ball2" parent="World/Interactabels" instance=ExtResource("7_vxt4g")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 5, 5)
 
+[node name="Ball3" parent="World/Interactabels" instance=ExtResource("7_vxt4g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 18, 10)
+
+[node name="Ball4" parent="World/Interactabels" instance=ExtResource("7_vxt4g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 18, 2)
+
+[node name="Ball5" parent="World/Interactabels" instance=ExtResource("7_vxt4g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 18, -3)
+
+[node name="Ball6" parent="World/Interactabels" instance=ExtResource("7_vxt4g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 18, -7)
+
+[node name="Ball7" parent="World/Interactabels" instance=ExtResource("7_vxt4g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 18, -11)
+
+[node name="Ball8" parent="World/Interactabels" instance=ExtResource("7_vxt4g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 18, -11)
+
+[node name="Ball9" parent="World/Interactabels" instance=ExtResource("7_vxt4g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 18, -7)
+
+[node name="Ball10" parent="World/Interactabels" instance=ExtResource("7_vxt4g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 18, -3)
+
+[node name="Ball11" parent="World/Interactabels" instance=ExtResource("7_vxt4g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 18, 3)
+
 [node name="Tests" type="Node3D" parent="World"]
 visible = false
 
@@ -211,7 +238,7 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -6.6, 
 [node name="additional_objects" type="Node3D" parent="World"]
 
 [node name="BigDingus" type="StaticBody3D" parent="World/additional_objects"]
-transform = Transform3D(-0.20908, -0.964076, 0.163835, -0.170195, 0.200855, 0.964723, -0.962974, 0.173821, -0.206076, -25.2654, -2.61167, 32.4383)
+transform = Transform3D(-0.209076, -0.964077, 0.163836, -0.170195, 0.200855, 0.964723, -0.962975, 0.173816, -0.206075, -25.2654, -2.61167, 32.4383)
 
 [node name="dingus_dingus_0" type="MeshInstance3D" parent="World/additional_objects/BigDingus"]
 transform = Transform3D(1, 0, 0, 0, 1, -8.88178e-16, 0, -1.77636e-15, 1, 0, 0, 0)
@@ -224,6 +251,8 @@ shape = SubResource("ConvexPolygonShape3D_4wkfj")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="World/additional_objects/BigDingus"]
 stream = ExtResource("11_27iov")
+volume_db = -10.0
+max_db = 1.0
 
 [node name="AnimationPlayer_for_objects" type="AnimationPlayer" parent="World/additional_objects"]
 libraries = {

@@ -10,10 +10,10 @@ var stamina : float
 
 var player_data = PlayerData.new()
 
-func _set_game_version()->void:
-	var data = {}
-	var version_file = FileAccess.open("user://version.json",FileAccess.READ)
-	var content = JSON.parse_string(version_file.get_as_text()) 
+#func _set_game_version()->void:
+	#var data = {}
+	#var version_file = FileAccess.open("user://version.json",FileAccess.READ)
+	#var content = JSON.parse_string(version_file.get_as_text()) 
 
 func _ready() -> void:
 	#_set_game_version()

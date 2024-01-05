@@ -46,7 +46,5 @@ node_b = NodePath("../DoorWay")
 angular_limit/enable = true
 angular_limit/upper = 1.91986
 angular_limit/lower = -1.91986
-angular_limit/softness = 1.5
-angular_limit/relaxation = 0.5
 
 [node name="SpringArm3D" type="SpringArm3D" parent="."]

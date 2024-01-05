@@ -31,7 +31,7 @@ extends CharacterBody3D
 @onready var drop_check: Area3D = $Nek/Head/Eyes/MainCamera3D/Drop_check
 @onready var double_drop_check: RayCast3D = $Nek/Head/Eyes/MainCamera3D/Double_Drop_check
 @onready var hand: Marker3D = $Nek/Head/Eyes/MainCamera3D/Hand
-@onready var joint: Generic6DOFJoint3D = $Nek/Head/Eyes/MainCamera3D/Generic6DOFJoint3D
+@onready var joint: JoltGeneric6DOFJoint3D = $Nek/Head/Eyes/MainCamera3D/Generic6DOFJoint3D
 @onready var static_body_for_grabbed_item: StaticBody3D = $Nek/Head/Eyes/MainCamera3D/SB_for_grabbed_item
 @onready var throw_pos: Marker3D = $Nek/Head/Eyes/MainCamera3D/Throw_pos
 @onready var anti_in_wall_walking_ray: RayCast3D = $Nek/Head/Anti_in_wall_walking_ray
@@ -257,7 +257,7 @@ func _physics_process(delta):
 
 	if picked_object != null:
 		base_interaction_unhold()
-		object_rotation_when_looking_down()
+		object_rotation_when_looking_down(delta)
 
 	if Input.is_action_pressed("crouch") and is_on_floor() or sliding and !in_dialoge and !in_external_inventory :
 		crouching_func(input_dir,delta)
@@ -431,7 +431,7 @@ func open_esc_menu() -> void:
 		poused = true
 		pouse_menu.pause()
 
-func object_rotation_when_looking_down() -> void:
+func object_rotation_when_looking_down(delta) -> void:
 	if rad_to_deg(head.rotation.x) < -40:
 		hand.position = Vector3(0.6,-0.3,-0.8)
 	else:
@@ -439,7 +439,9 @@ func object_rotation_when_looking_down() -> void:
 	if picked_object != null:
 		var a = picked_object.global_position
 		var b = hand.global_position
-		picked_object.set_linear_velocity((b-a) * pull_power)
+		picked_object.global_position = lerp(a,b,delta * lerp_speed)
+		
+		#picked_object.set_linear_velocity((b-a) * pull_power)
 
 func crouching_func(input_dir,delta) -> void:
 	current_speed = lerp(current_speed,crouching_speed,delta * lerp_speed)
@@ -795,7 +797,11 @@ func _rotate_step_up_separation_ray()-> void:
 	$UpstairsColisionShapeR2/RayCast3D5.force_raycast_update()
 	var max_slope_ang_dot = Vector3(0,1,0).rotated(Vector3(1.0,0,0),self.floor_max_angle).dot(Vector3(0,1,0))
 	var any_too_steep = false
+	#print(max_slope_ang_dot)
 	if $UpstairsColisionShape/RayCast3D.is_colliding() and $UpstairsColisionShape/RayCast3D.get_collision_normal().dot(Vector3(0,1,0)) < max_slope_ang_dot:
+		#print("*********************")
+		#print($UpstairsColisionShape/RayCast3D.get_collision_normal().dot(Vector3(0,1,0)))
+		#print("*********************")
 		any_too_steep = true
 	if $UpstairsColisionShapeL/RayCast3D2.is_colliding() and $UpstairsColisionShapeL/RayCast3D2.get_collision_normal().dot(Vector3(0,1,0)) < max_slope_ang_dot:
 		any_too_steep = true
