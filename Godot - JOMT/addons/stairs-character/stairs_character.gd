@@ -42,19 +42,22 @@ func _ready() -> void:
 ## Call this before move_and_slide()
 func handle_stairs() -> void:
 	if is_on_floor() == false || get_last_slide_collision() == null:
-		_separator.disabled = true
-		return
-	
+		if _separator == CollisionObject3D:
+			_separator.disabled = true
+			return
+		else:
+			return
 	var local_pos : Vector3 = to_local(get_last_slide_collision().get_position())
 	local_pos.y = _rayShapeLocalHeight+step_margin
 	
-	_raycast.position = local_pos
-	_raycast.force_update_transform()
-	_raycast.force_raycast_update()
-	
-	var angle = _raycast.get_collision_normal().angle_to(up_direction)
-	if (angle > floor_max_angle):
-		return
-		
-	_separator.disabled = false
-	_separator.position = local_pos
+	if _raycast == RayCast3D:
+		_raycast.position = local_pos
+		_raycast.force_update_transform()
+		_raycast.force_raycast_update()
+	if _raycast != null: 
+		var angle = _raycast.get_collision_normal().angle_to(up_direction)
+		if (angle > floor_max_angle):
+			return
+	if _separator == CollisionObject3D:
+		_separator.disabled = false
+		_separator.position = local_pos

@@ -1,0 +1,12 @@
+newmtl __TB_empty
+map_Kd textures\__TB_empty.png
+
+newmtl special/clip
+map_Kd textures\special\clip.png
+
+newmtl special/skip
+map_Kd textures\special\skip.png
+
+newmtl texture_07
+map_Kd textures\texture_07.png
+

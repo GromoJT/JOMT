@@ -1,8 +1,11 @@
 extends ColorRect
+@onready var label_2: Label = $MarginContainer/VBoxContainer/Label2
+
 @onready var color_rect: ColorRect = $"."
 @onready var resume_button: Button = $CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ResumeButton
 @onready var quit_button: Button = $CenterContainer/PanelContainer/MarginContainer/VBoxContainer/QuitButton
 @onready var  MAIN_MENU = "res://scenes/main_menu.tscn"
+
 signal unPouse
 
 func _unhandled_input(_event: InputEvent) -> void:
@@ -11,8 +14,7 @@ func _unhandled_input(_event: InputEvent) -> void:
 
 func _ready() -> void:
 	resume_button.pressed.connect(unpause)
-	quit_button.pressed.connect(get_tree().quit)
-
+	label_2.text = "JOMT v"+str(Globals.game_version)
 func unpause():
 #	print("nie pauza")
 	get_tree().paused = false
@@ -40,3 +42,17 @@ func _on_save_pressed() -> void:
 	print(get_parent().get_parent().get_parent().get_node("Player").get_global_position())
 	pd.global_position = get_parent().get_parent().get_parent().get_node("Player").get_global_position()
 	Globals.save_data(Globals.SAVE_DIR + Globals.SAVE_FILE_NAME,pd)
+
+
+
+func _on_host_pressed() -> void:
+	self.get_parent().get_parent().get_parent().openServer()
+
+
+func _on_join_pressed() -> void:
+	pass # Replace with function body.
+
+
+func _on_quit_button_pressed() -> void:
+	#self.get_parent().get_parent().get_parent().exit_game(self.get_parent().name.to_int())
+	get_tree().quit()

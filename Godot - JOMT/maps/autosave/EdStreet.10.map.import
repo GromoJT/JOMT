@@ -1,0 +1,14 @@
+[remap]
+
+importer="qodot.map"
+type="Resource"
+uid="uid://c8ufps2igsqmr"
+path="res://.godot/imported/EdStreet.10.map-b394bdb218d737c230b6dbd3abb21c53.tres"
+
+[deps]
+
+source_file="res://maps/autosave/EdStreet.10.map"
+dest_files=["res://.godot/imported/EdStreet.10.map-b394bdb218d737c230b6dbd3abb21c53.tres"]
+
+[params]
+

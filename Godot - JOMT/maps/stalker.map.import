@@ -1,0 +1,14 @@
+[remap]
+
+importer="qodot.map"
+type="Resource"
+uid="uid://bu20ovuik5qy6"
+path="res://.godot/imported/stalker.map-d3ffabf7e4ca8c5e51eb36459f3ff630.tres"
+
+[deps]
+
+source_file="res://maps/stalker.map"
+dest_files=["res://.godot/imported/stalker.map-d3ffabf7e4ca8c5e51eb36459f3ff630.tres"]
+
+[params]
+

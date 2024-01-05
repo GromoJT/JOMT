@@ -4,9 +4,19 @@ const SAVE_DIR="user://saves/"
 const SAVE_FILE_NAME = "save.json"
 const SECURITY_KEY = "09SSNAE38422345SMNCAI"
 
+var game_version: float = 0.103
+
+var stamina : float
+
 var player_data = PlayerData.new()
 
+func _set_game_version()->void:
+	var data = {}
+	var version_file = FileAccess.open("user://version.json",FileAccess.READ)
+	var content = JSON.parse_string(version_file.get_as_text()) 
+
 func _ready() -> void:
+	#_set_game_version()
 	verify_save_directory(SAVE_DIR)
 
 func verify_save_directory(path:String):
@@ -15,7 +25,7 @@ func verify_save_directory(path:String):
 func save_data(path: String,pd:PlayerData):
 	var file = FileAccess.open_encrypted_with_pass(path,FileAccess.WRITE,SECURITY_KEY)
 	if file == null:
-		print(FileAccess.get_open_error())
+		#print(FileAccess.get_open_error())
 		return
 	
 	var data = {
@@ -37,7 +47,7 @@ func load_data(path:String):
 	if FileAccess.file_exists(path):
 		var file = FileAccess.open_encrypted_with_pass(path,FileAccess.READ,SECURITY_KEY)
 		if file == null:
-			print(FileAccess.get_open_error())
+			#print(FileAccess.get_open_error())
 			return
 		var content = file.get_as_text()
 		file.close()
@@ -68,7 +78,7 @@ var enterPoint: String
 func changeLevelToVia(scene : String ,entrence : String = ""):
 	enterPoint = entrence
 	currentScene = scene
-	print(enterPoint)
+	#print(enterPoint)
 	call_deferred("loader",scene)
 
 func loadSave():
@@ -81,6 +91,6 @@ func player_send_pick_up_item_to_geometry(_slotData, _position) -> void:
 	var pick_up = PICK_UP.instantiate()
 	pick_up.slot_data = _slotData;
 	pick_up.position = _position;
-	print("OK?")
+	#print("OK?")
 	get_tree().root.add_child(pick_up)
 

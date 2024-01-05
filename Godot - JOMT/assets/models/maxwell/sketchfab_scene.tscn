@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dres1vg5mb5mi"]
+
+[ext_resource type="PackedScene" uid="uid://dnsn1p6uhxnvg" path="res://assets/models/maxwell_the_cat_dingus.glb" id="1_yn7to"]
+
+[node name="Sketchfab_Scene" instance=ExtResource("1_yn7to")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)

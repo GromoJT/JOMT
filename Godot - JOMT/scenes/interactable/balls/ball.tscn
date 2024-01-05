@@ -1,0 +1,40 @@
+[gd_scene load_steps=8 format=3 uid="uid://bitqvo211cuqe"]
+
+[ext_resource type="Script" path="res://scenes/Levels/Master_1/Ball.gd" id="1_yb415"]
+[ext_resource type="Texture2D" uid="uid://dv5he53eer4v" path="res://icon.svg" id="2_62aa3"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_omm6f"]
+bounce = 0.95
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tq6l5"]
+albedo_color = Color(0.4, 0.698039, 0.772549, 1)
+albedo_texture = ExtResource("2_62aa3")
+
+[sub_resource type="SphereMesh" id="SphereMesh_amm7g"]
+material = SubResource("StandardMaterial3D_tq6l5")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_il7e1"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_pgnep"]
+properties/0/path = NodePath(".:gp")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:gr")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
+[node name="Ball" type="RigidBody3D"]
+collision_layer = 4
+collision_mask = 5
+physics_material_override = SubResource("PhysicsMaterial_omm6f")
+continuous_cd = true
+script = ExtResource("1_yb415")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_amm7g")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_il7e1")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_pgnep")

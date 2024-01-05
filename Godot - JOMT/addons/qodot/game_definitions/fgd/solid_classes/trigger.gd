@@ -8,5 +8,5 @@ func _ready():
 func handle_body_entered(body: Node):
 	if body is StaticBody3D:
 		return
-	print(body)
+	#print(body)
 	emit_signal("trigger")
