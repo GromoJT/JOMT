@@ -9,6 +9,12 @@ extends CharacterBody3D
 
 #---CollidersCheks--#
 @onready var ray_cast_crouching = $RayCastCrouching
+#@onready var drop_up_ray_cast: RayCast3D = $dropUpRayCast
+@onready var drop_up_ray_cast: RayCast3D = $Nek/Head/Eyes/MainCamera3D/Interaction_grabbing_ray/dropUpRayCast
+
+#@onready var test_mesh: MeshInstance3D = $dropUpRayCast/testMesh
+#@onready var test_mesh: MeshInstance3D = $Nek/Head/Eyes/MainCamera3D/Interaction_grabbing_ray/dropUpRayCast/testMesh
+@onready var test_mesh: MeshInstance3D = $Nek/Head/Eyes/MainCamera3D/Interaction_grabbing_ray/testMesh
 
 
 @onready var upstairs_colision_shape: CollisionShape3D = $UpstairsColisionShape
@@ -22,17 +28,23 @@ extends CharacterBody3D
 
 #---MainCameraTree---#
 @onready var main_camera_3d: Camera3D = $Nek/Head/Eyes/MainCamera3D
+
 #+++Interaction+++#
 @onready var lean_area_detector_l: Area3D = $Areas/Lean_area_detector_L
 @onready var lean_area_detector_r: Area3D = $Areas/Lean_area_detector_R
+@onready var drop_point: Marker3D = $Nek/Head/Eyes/MainCamera3D/Interaction_grabbing_ray/Drop_point
 
 
 @onready var interaction_grabbing_ray: RayCast3D = $Nek/Head/Eyes/MainCamera3D/Interaction_grabbing_ray
 @onready var drop_check: Area3D = $Nek/Head/Eyes/MainCamera3D/Drop_check
 @onready var double_drop_check: RayCast3D = $Nek/Head/Eyes/MainCamera3D/Double_Drop_check
 @onready var hand: Marker3D = $Nek/Head/Eyes/MainCamera3D/Hand
-@onready var joint: JoltGeneric6DOFJoint3D = $Nek/Head/Eyes/MainCamera3D/Generic6DOFJoint3D
-@onready var static_body_for_grabbed_item: StaticBody3D = $Nek/Head/Eyes/MainCamera3D/SB_for_grabbed_item
+#@onready var joint: JoltGeneric6DOFJoint3D = $Nek/Head/Eyes/MainCamera3D/JoltGeneric6DOFJoint3D
+@onready var joint: JoltGeneric6DOFJoint3D = $Nek/Head/Eyes/MainCamera3D/Hand/JoltGeneric6DOFJoint3D
+
+#@onready var static_body_for_grabbed_item: StaticBody3D = $Nek/Head/Eyes/MainCamera3D/SB_for_grabbed_item
+@onready var static_body_for_grabbed_item: StaticBody3D = $Nek/Head/Eyes/MainCamera3D/Hand/SB_for_grabbed_item
+
 @onready var throw_pos: Marker3D = $Nek/Head/Eyes/MainCamera3D/Throw_pos
 @onready var anti_in_wall_walking_ray: RayCast3D = $Nek/Head/Anti_in_wall_walking_ray
 #+++SubView+++#
@@ -162,7 +174,7 @@ var picked_object
 var pull_power = 56
 var rotation_power = 2
 var can_drop = true
-
+var gun_in_hand : bool = true
 var havy_item : bool = false
 
 var push_force: float = 2.0
@@ -180,6 +192,8 @@ var can_regen : bool = false
 var exhaustion : bool = false
 var is_realxig : bool = false
 
+
+var test_object_sieze : Vector3 = Vector3.ZERO
 #	Start
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -212,6 +226,8 @@ func _process(_delta: float) -> void:
 	gun_cam.global_transform = main_camera_3d.global_transform
 	drop_check.global_transform = hand.global_transform
 
+var drop_dist : float = 0.0
+var drop_normal : Vector3 = Vector3.ZERO
 
 func _physics_process(delta):
 	var input_dir = Input.get_vector("left", "right", "forward", "back")
@@ -219,6 +235,47 @@ func _physics_process(delta):
 	anti_in_wall_walking_ray.target_position= Vector3(input_dir.x,0,input_dir.y)
 	#print(input_dir.x)
 	
+	#print(main_camera_3d.global_rotation_degrees)
+	#if drop_up_ray_cast != null:
+		#print(drop_up_ray_cast.global_rotation_degrees)
+	#drop_up_ray_cast.position = interaction_grabbing_ray.get_target_position()
+	if main_camera_3d.global_rotation_degrees.x < -55:
+		interaction_grabbing_ray.target_position.z = -2.2
+		#print("*")
+	else:
+		interaction_grabbing_ray.target_position.z = -2
+		#print("_")
+	drop_up_ray_cast.rotation_degrees.x = -main_camera_3d.global_rotation_degrees.x
+	throw_pos.position = Vector3(0,0,-0.5)
+	if interaction_grabbing_ray.is_colliding():
+		
+		if interaction_grabbing_ray.get_collision_normal().y>0.45:
+			drop_up_ray_cast.enabled = true
+			drop_up_ray_cast.global_position = interaction_grabbing_ray.get_collision_point() - Vector3(0,0.1,0)
+		else:
+			drop_normal = interaction_grabbing_ray.get_collision_normal().normalized() 
+			drop_up_ray_cast.enabled = false
+			drop_point.global_position = interaction_grabbing_ray.get_collision_point() + (drop_normal * (drop_dist * 1.1))
+			test_mesh.global_position = drop_point.global_position
+	else:
+		drop_up_ray_cast.enabled = false
+
+		
+	if drop_up_ray_cast.is_colliding():
+		
+		drop_normal = Vector3(0,drop_dist * 1.1,0)
+		drop_point.global_position = interaction_grabbing_ray.get_collision_point() + drop_normal
+		test_mesh.global_position = drop_point.global_position
+		throw_pos.global_position = drop_point.global_position
+		#test_mesh.visible = true;
+
+	if !drop_up_ray_cast.is_colliding() and !interaction_grabbing_ray.is_colliding():
+		drop_point.position = interaction_grabbing_ray.target_position
+		test_mesh.global_position = drop_point.global_position
+		
+	if picked_object != null:
+		drop_dist = max(test_object_sieze.x,test_object_sieze.y,test_object_sieze.z) / 2
+		
 	can_lean_func()
 	#print(cur_stamina)
 	declare_moon_walk(input_dir)
@@ -236,6 +293,19 @@ func _physics_process(delta):
 		crouching_speed = 3.0
 
 	
+	if gun_cam.active_gun.Weapon_Name == "nothing":
+		gun_in_hand = false
+		gun_cam.is_ADS = false
+	else:
+		gun_in_hand = true
+	
+	ui.get_node("Control/Label").visible = !gun_cam.is_ADS
+	
+	if Input.is_action_just_released("weapon_up") and picked_object == null:
+		gun_cam.weapon_up_signal()
+	if Input.is_action_just_released("weapon_down") and picked_object == null:
+		gun_cam.weapon_down_signal()
+	
 	if Input.is_action_just_pressed("Light"):
 		toggle_personal_light()
 	
@@ -245,9 +315,20 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("inventory"):
 		toggle_inventory_function()
 	
-	if Input.is_action_just_pressed("interact") and !in_dialoge and !inventory_interface.visible:
+
+	if Input.is_action_just_pressed("interact") and !in_dialoge and !inventory_interface.visible and !gun_in_hand:
+
 		try_interact()
+	elif Input.is_action_just_pressed("interact") and !in_dialoge and gun_in_hand:
+		gun_cam.shoot()
+
 		
+	if Input.is_action_pressed("interact_2") and !in_dialoge and gun_in_hand:
+		gun_cam.ADS_In()
+		
+	if Input.is_action_just_released("interact_2")  and !in_dialoge and gun_in_hand and gun_cam.is_ADS:
+		
+		gun_cam.ADS_Out()
 	# Handle piking things up
 	if Input.is_action_pressed("interact"):
 		base_interaction()
@@ -286,7 +367,7 @@ func _physics_process(delta):
 		unlean_func(delta)
 		
 		if input_dir.x != 0 and can_lean_left and can_lean_right:
-			main_camera_3d.rotation.z = lerp(main_camera_3d.rotation.z,-lean_rot_z/8 * input_dir.x,delta * lerp_speed/3)
+			main_camera_3d.rotation.z = lerp(main_camera_3d.rotation.z,-lean_rot_z/6 * input_dir.x,delta * lerp_speed/3)
 		else:	
 			main_camera_3d.rotation.z = lerp(main_camera_3d.rotation.z,0.0,delta * lerp_speed/3)
 		
@@ -389,17 +470,17 @@ func declare_moon_walk(input_dir) -> void:
 		moon_walk = false
 
 func base_interaction() -> void:
-	if can_grab and !inventory_interface.visible:
+	if can_grab and !inventory_interface.visible and !gun_in_hand:
 			pick_object()
 			
 			if Input.is_action_just_pressed("interact_2"):
 				if picked_object != null:
 					if (can_drop and picked_object.has_method("disable_collisions")) or (!can_drop and !picked_object.has_method("disable_collisions")) or (can_drop and !picked_object.has_method("disable_collisions")) :
-						if double_drop_check.get_collider() == null:
-							joint.set_node_b(joint.get_path())
-							picked_object.global_position = throw_pos.global_position
-							var knokback = picked_object.global_position - eyes.global_position
-							picked_object.apply_central_impulse(knokback * 20)
+						#if double_drop_check.get_collider() == null:
+						joint.set_node_b(joint.get_path())
+						picked_object.global_position = throw_pos.global_position
+						var knokback = picked_object.global_position - eyes.global_position
+						picked_object.apply_central_impulse(knokback * 20)
 						remove_object()
 			if Input.is_action_pressed("free_look"):
 				locked_look = true
@@ -410,16 +491,16 @@ func base_interaction_relese() -> void:
 	locked_look = false
 	if picked_object != null:
 		if (can_drop and picked_object.has_method("disable_collisions")) or (!can_drop and !picked_object.has_method("disable_collisions")) or (can_drop and !picked_object.has_method("disable_collisions")):
-			if double_drop_check.get_collider() == null:
-				remove_object()
+			#if double_drop_check.get_collider() == null:
+			remove_object()
 
 func base_interaction_unhold() -> void:
 	if !Input.is_action_pressed("interact"):
 		locked_look = false
 		if picked_object != null:
 			if (can_drop and picked_object.has_method("disable_collisions")) or (!can_drop and !picked_object.has_method("disable_collisions")) or (can_drop and !picked_object.has_method("disable_collisions")):
-				if double_drop_check.get_collider() == null:
-					remove_object()
+				#if double_drop_check.get_collider() == null:
+				remove_object()
 
 func open_esc_menu() -> void:
 	if in_external_inventory:
@@ -437,9 +518,7 @@ func object_rotation_when_looking_down(delta) -> void:
 	else:
 		hand.position = Vector3(0,-0.3,-1.3)
 	if picked_object != null:
-		var a = picked_object.global_position
-		var b = hand.global_position
-		picked_object.global_position = lerp(a,b,delta * lerp_speed)
+		picked_object.global_position = static_body_for_grabbed_item.global_position
 		
 		#picked_object.set_linear_velocity((b-a) * pull_power)
 
@@ -621,7 +700,8 @@ func _play_sound(track:AudioStreamMP3):
 func try_interact():
 	var collider = interaction_grabbing_ray.get_collider()
 	if collider != null and collider.is_in_group("Interactable"):
-		collider.interact()
+		if collider.has_method("interact"):
+			collider.interact()
 		if collider.has_method("talk"):
 			Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
 			in_dialoge = true
@@ -635,6 +715,11 @@ func pick_object():
 		var collider = interaction_grabbing_ray.get_collider()
 		if collider !=null and collider is RigidBody3D and collider.is_in_group("holdable"):
 			#print("test")
+			
+			for c in collider.get_children(): 
+				if c is MeshInstance3D:
+					test_object_sieze = c.get_aabb().size * Vector3(c.transform.basis.x.length(),c.transform.basis.y.length(),c.transform.basis.z.length())
+			
 			picked_object = collider
 			#print(picked_object.get_mass())
 			if(picked_object.get_mass() > 10):
@@ -647,7 +732,10 @@ func remove_object():
 	if picked_object != null:
 		if picked_object.has_method("enable_collisions"):
 			picked_object.enable_collisions()
+		picked_object.global_position = drop_point.global_position
 		picked_object = null
+		test_object_sieze = Vector3.ZERO
+		
 		havy_item = false
 		grab_delay.start()
 		can_grab = false
@@ -656,9 +744,17 @@ func remove_object():
 func rotate_object(event):
 	if picked_object != null:
 		if event is InputEventMouseMotion:
+			#picked_object.global_position = static_body_for_grabbed_item.global_position
+			#joint.global_position = static_body_for_grabbed_item.global_position
+			
 			static_body_for_grabbed_item.rotate_x(deg_to_rad(event.relative.y * rotation_power))
 			static_body_for_grabbed_item.rotate_y(deg_to_rad(event.relative.x * rotation_power)) 
-
+			#print("***")
+			#print(static_body_for_grabbed_item.global_position)
+			#print(picked_object.global_position)
+			#print(joint.global_position)
+			#
+			#picked_object.global_position = static_body_for_grabbed_item.global_position
 func visionBack():
 	ui.visible = true
 	pouse_menu.visible = false

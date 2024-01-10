@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://bst6swlycxlsf"]
+
+[ext_resource type="Texture2D" uid="uid://vbr4hnyjwpwf" path="res://assets/models/guns/pistols/maxim9/MAXIM9.png" id="1_bgt3w"]
+
+[resource]
+albedo_texture = ExtResource("1_bgt3w")
+metallic = 0.25
+metallic_specular = 0.32

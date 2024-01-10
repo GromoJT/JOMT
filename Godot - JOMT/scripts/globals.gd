@@ -4,7 +4,7 @@ const SAVE_DIR="user://saves/"
 const SAVE_FILE_NAME = "save.json"
 const SECURITY_KEY = "09SSNAE38422345SMNCAI"
 
-var game_version: float = 0.103
+var game_version: float = 0.106
 
 var stamina : float
 

@@ -1,0 +1,59 @@
+[gd_scene load_steps=7 format=3 uid="uid://cs2qkg7ls34wu"]
+
+[ext_resource type="Script" path="res://scripts/guns/Bullet.gd" id="1_sr3r2"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_8sq3o"]
+radius = 0.1
+height = 0.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a07b0"]
+albedo_color = Color(0.639216, 0.631373, 0, 1)
+emission_enabled = true
+emission = Color(0.694118, 0.635294, 0.372549, 1)
+emission_energy_multiplier = 3.0
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ljyvs"]
+direction = Vector3(0, 0, 1)
+initial_velocity_min = 3.0
+initial_velocity_max = 5.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iioi2"]
+albedo_color = Color(0.8, 0.745098, 0.439216, 1)
+emission_enabled = true
+emission = Color(0.960784, 0.894118, 0.407843, 1)
+emission_energy_multiplier = 10.21
+
+[sub_resource type="BoxMesh" id="BoxMesh_4mtl7"]
+material = SubResource("StandardMaterial3D_iioi2")
+
+[node name="Bullet" type="Node3D"]
+script = ExtResource("1_sr3r2")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_8sq3o")
+surface_material_override/0 = SubResource("StandardMaterial3D_a07b0")
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.468327)
+exclude_parent = false
+target_position = Vector3(0, 0, -1)
+collision_mask = 15
+hit_from_inside = true
+collide_with_areas = true
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.000949204)
+emitting = false
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_ljyvs")
+draw_pass_1 = SubResource("BoxMesh_4mtl7")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

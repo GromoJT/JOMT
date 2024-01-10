@@ -24,10 +24,13 @@ func _on_maxwell_pedestal_trigger_body_entered(body: Node3D) -> void:
 		bigDingusState = true
 		animation_player_for_objects.play("catScare")
 		audio_stream_player_3d.play()
-
+	if body.is_in_group("tape"):
+		body.activate_melody()
 
 func _on_maxwell_pedestal_trigger_body_exited(_body: Node3D) -> void:
-	if bigDingusState:
+	if bigDingusState and _body.is_in_group("MaxWellHoldabel"):
 		bigDingusState = false
 		animation_player_for_objects.play("catScare",-1,-1,true)
 		audio_stream_player_3d.stop()
+	if _body.is_in_group("tape"):
+		_body.stop_melody()

@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="Weapon_Resource" load_steps=2 format=3 uid="uid://b8i3nef6m7cot"]
+
+[ext_resource type="Script" path="res://scripts/guns/weapon_resource.gd" id="1_dgj8u"]
+
+[resource]
+script = ExtResource("1_dgj8u")
+Weapon_Name = "maxim9"
+Activate_Anim = "maxim9 Activate_Anim"
+Shoot_Anim = "m9 Shoot"
+Reload_Anim = "m9 Reload"
+Deactivate_Anim = "maxim9 Deactivate_Anim"
+Out_Of_Ammo_Anim = "m9 OOA"
+Aim_In_Anim = "maxim9 Aim_In_Anim"
+Aim_Out_Anim = "maxim9 Aim_Out_Anim"
+ADS_in_pos = Vector3(0, -0.22, -1.503)
+ADS_in_rot = Vector3(0, 0, 0)
+ADS_out_pos = Vector3(0, 0, 0)
+ADS_out_rot = Vector3(0, 0, 0)
+Current_Ammo = 10
+Reserve_Ammo = 90
+Magazine = 10
+Max_Ammo = 100
+Auto_fire = false

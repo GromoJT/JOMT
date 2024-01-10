@@ -1,0 +1,324 @@
+[gd_scene load_steps=10 format=3 uid="uid://bu3ra02yrt1a"]
+
+[ext_resource type="PackedScene" uid="uid://xby2rwn77pv7" path="res://assets/models/guns/pistols/maxim9/maxim9.blend" id="1_21q57"]
+[ext_resource type="AudioStream" uid="uid://p15eohy3g5vy" path="res://audio/guns/maxim9/maxim.mp3" id="2_ps5mj"]
+
+[sub_resource type="Animation" id="Animation_jjouf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Armature/Skeleton3D/slide:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.00318582, 2.08819, -0.32029)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Armature/Skeleton3D/slide:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.319157, 1.18096e-17, 7.33756e-17)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Armature/Skeleton3D/trigger:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.0183931, 1.23238, -1.04216)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Armature/Skeleton3D/trigger:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.319157, -1.22607e-09, -2.53838e-09)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Armature/Skeleton3D/magazin:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.00608057, -1.27098, -0.178368)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Armature/Skeleton3D/magazin:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.319157, -5.92401e-15, 3.67988e-14)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Armature/Skeleton3D:rotation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.0349066, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_4e8ub"]
+resource_name = "m9 OOA"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Armature/Skeleton3D/slide:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 1.705, 0.838)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Armature/Skeleton3D/trigger:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0.0183931, 1.23238, -1.04216), Vector3(0.0183931, 1.22546, -0.92158), Vector3(0.0183931, 1.23238, -1.04216)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Armature/Skeleton3D/trigger:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0.319157, -1.22607e-09, -2.53838e-09), Vector3(0.0573576, -5.68007e-10, -2.41416e-09), Vector3(0.319157, -1.22607e-09, -2.53838e-09)]
+}
+
+[sub_resource type="Animation" id="Animation_mrgib"]
+resource_name = "m9 Reload"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Armature/Skeleton3D/slide:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 0.15932),
+"update": 0,
+"values": [Vector3(0, 1.705, 0.838), Vector3(0, 1.705, 0.838), Vector3(-1.36818e-17, 2.08784, -0.320531)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Armature/Skeleton3D/slide:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 0.15932),
+"update": 0,
+"values": [Vector3(0.319157, 1.18096e-17, 7.33756e-17), Vector3(0.319157, 1.18096e-17, 7.33756e-17), Vector3(0.319157, 1.18096e-17, 7.33756e-17)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Armature/Skeleton3D/magazin:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.5, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0.00608057, -1.27098, -0.178368), Vector3(0.00608057, -7.765, -0.415619), Vector3(0.00608057, -7.765, -0.415619), Vector3(0.00608057, -1.27098, -0.178368)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Armature/Skeleton3D/magazin:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.5, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0.319157, -5.92401e-15, 3.67988e-14), Vector3(0.319157, -5.92401e-15, 3.67988e-14), Vector3(0.319157, -5.92401e-15, 3.67988e-14), Vector3(0.319157, -5.92401e-15, 3.67988e-14)]
+}
+
+[sub_resource type="Animation" id="Animation_34xa1"]
+resource_name = "m9 Shoot"
+length = 0.12
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Armature/Skeleton3D/slide:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0412402, 0.0604221, 0.100794),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(-0.00318582, 2.08819, -0.32029), Vector3(-0.00318582, 2.08819, -0.32029), Vector3(-0.00318582, 1.66821, 0.950628), Vector3(-0.00318582, 2.08819, -0.32029)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Armature/Skeleton3D/slide:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0412402, 0.0604221, 0.100794),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0.319157, 1.18096e-17, 7.33756e-17), Vector3(0.319157, 1.18096e-17, 7.33756e-17), Vector3(0.319157, 1.18096e-17, 7.33756e-17), Vector3(0.319157, 1.18096e-17, 7.33756e-17)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Armature/Skeleton3D/trigger:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.0424398, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0.0183931, 1.23238, -1.04216), Vector3(0.0183931, 1.31358, -1.0375), Vector3(0.0183931, 1.23238, -1.04216)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Armature/Skeleton3D/trigger:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.0424398, 0.114403),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0.319157, -1.22607e-09, -2.53838e-09), Vector3(0.0573578, -5.68006e-10, -2.41417e-09), Vector3(0.319157, -1.22607e-09, -2.53838e-09)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Armature/Skeleton3D:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.0457021, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.0349066, 0, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ltv1i"]
+_data = {
+"RESET": SubResource("Animation_jjouf"),
+"m9 OOA": SubResource("Animation_4e8ub"),
+"m9 Reload": SubResource("Animation_mrgib"),
+"m9 Shoot": SubResource("Animation_34xa1")
+}
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pbxmp"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_cq7o5"]
+material = SubResource("StandardMaterial3D_pbxmp")
+top_radius = 0.05
+bottom_radius = 0.05
+height = 100.0
+
+[node name="maxim9" instance=ExtResource("1_21q57")]
+
+[node name="Skeleton3D" parent="Armature" index="0"]
+transform = Transform3D(1, 0, 0, 0, 0.999391, -0.0348995, 0, 0.0348995, 0.99939, 0, 0, 0)
+bones/1/rotation = Quaternion(0.953869, -1.30078e-24, 2.16796e-25, -0.300222)
+bones/1/scale = Vector3(1, 1, 1)
+bones/2/rotation = Quaternion(0.989456, 9.81183e-10, -7.31904e-10, 0.144835)
+bones/2/scale = Vector3(0.813432, 0.813432, 0.813432)
+bones/3/rotation = Quaternion(-0.588607, 2.63796e-24, -1.34296e-24, 0.80842)
+bones/4/rotation = Quaternion(0.709588, -2.0768e-17, 2.85238e-17, 0.704617)
+bones/5/rotation = Quaternion(0.0680946, 1.18933e-07, 8.11751e-09, 0.997679)
+bones/6/rotation = Quaternion(0.0913039, -1.18711e-07, 1.08843e-08, 0.995823)
+bones/7/rotation = Quaternion(0.158902, 8.37826e-25, 3.52834e-17, 0.987294)
+
+[node name="trigger" parent="Armature/Skeleton3D" index="0"]
+transform = Transform3D(0.813432, 1.75187e-09, -9.4696e-10, -1.96053e-09, 0.772354, -0.255227, 3.4946e-10, 0.255227, 0.772354, 0.0183931, 1.23238, -1.04216)
+
+[node name="trigger" parent="Armature/Skeleton3D/trigger" index="0"]
+transform = Transform3D(1, 1.73473e-16, -2.22045e-16, -1.73473e-16, 1, -5.68434e-14, 2.22045e-16, 5.68434e-14, 1, 0, 0, 0)
+layers = 4
+
+[node name="slide" parent="Armature/Skeleton3D" index="1"]
+transform = Transform3D(0.813432, -5.6672e-17, 9.12119e-18, 5.66719e-17, 0.772354, -0.255228, 9.12117e-18, 0.255228, 0.772354, -0.00318582, 2.08819, -0.32029)
+
+[node name="slide" parent="Armature/Skeleton3D/slide" index="0"]
+layers = 4
+
+[node name="magazin" parent="Armature/Skeleton3D" index="2"]
+transform = Transform3D(0.813432, -8.89349e-15, -6.36222e-15, 2.84217e-14, 0.21844, -0.354899, 1.42109e-14, 0.0721845, 1.07397, 0.00608057, -1.27098, -0.178368)
+
+[node name="magazin" parent="Armature/Skeleton3D/magazin" index="0"]
+transform = Transform3D(1, -3.36076e-21, -1.35525e-20, -3.00888e-20, 1, 0, 8.47033e-22, -7.10543e-15, 1, 0, 0, 0)
+layers = 4
+
+[node name="body" parent="Armature/Skeleton3D" index="3"]
+transform = Transform3D(0.813432, -5.6672e-17, 9.12119e-18, 5.6672e-17, 0.772354, -0.255228, 9.12119e-18, 0.255228, 0.772354, -0.00573042, 1.69419, -2.31796)
+
+[node name="body" parent="Armature/Skeleton3D/body" index="0"]
+layers = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Armature" index="1"]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_ltv1i")
+}
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Armature" index="2"]
+stream = ExtResource("2_ps5mj")
+
+[node name="gun_barrel" type="RayCast3D" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 0.999951, -0.0098784, 0, 0.0098784, 0.999951, 0, 1.67807, 3.64023)
+target_position = Vector3(0, 0, -100)
+collision_mask = 15
+hit_back_faces = false
+debug_shape_custom_color = Color(1, 0.196078, 0.145098, 1)
+debug_shape_thickness = 5
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." index="2"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1, -47)
+visible = false
+mesh = SubResource("CylinderMesh_cq7o5")

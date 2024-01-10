@@ -1,0 +1,497 @@
+[gd_scene load_steps=33 format=3 uid="uid://38q4fe3wbosk"]
+
+[ext_resource type="Script" path="res://scripts/Player_new.gd" id="1_np2gy"]
+[ext_resource type="Resource" uid="uid://7b7v14vpih74" path="res://scripts/inventory/test_inv.tres" id="2_cgpdo"]
+[ext_resource type="AudioStream" uid="uid://buhh5h0k1nwqk" path="res://audio/step_1.mp3" id="2_rcht0"]
+[ext_resource type="AudioStream" uid="uid://drvysqyxhpab1" path="res://audio/step_2.mp3" id="3_wlqrp"]
+[ext_resource type="AudioStream" uid="uid://ppl3ir42p2h8" path="res://audio/step_3.mp3" id="4_0keiq"]
+[ext_resource type="AudioStream" uid="uid://m4sqy48qw30u" path="res://audio/step_4.mp3" id="5_1plv1"]
+[ext_resource type="Environment" uid="uid://ddbuvg60s3ja" path="res://assets/env/base_env.tres" id="6_whw3m"]
+[ext_resource type="PackedScene" uid="uid://dfl7x3uihwmiu" path="res://scenes/ui/ui.tscn" id="7_6cgp5"]
+[ext_resource type="PackedScene" uid="uid://b3738oe1wrvpl" path="res://scripts/inventory/inventory.tscn" id="8_7k8v8"]
+[ext_resource type="Script" path="res://scenes/player/Interaction_grabbing_ray.gd" id="8_8ad7m"]
+[ext_resource type="PackedScene" uid="uid://6fin8skkxlbd" path="res://scenes/ui/PouseMenu.tscn" id="8_breth"]
+[ext_resource type="PackedScene" uid="uid://cj7m07utn0lq8" path="res://scenes/player/gun_cam.tscn" id="8_giavv"]
+[ext_resource type="Script" path="res://scripts/inventory/inventory_interface.gd" id="10_cd8uk"]
+[ext_resource type="PackedScene" uid="uid://82xk6ankj3xh" path="res://scripts/inventory/slot.tscn" id="12_m3xar"]
+[ext_resource type="Script" path="res://scenes/player/GroundSurfaceChecker.gd" id="14_tb3kk"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_un768"]
+radius = 0.3
+height = 1.1
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ixnuc"]
+radius = 0.3
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_yaf0k"]
+radius = 0.15
+height = 0.6
+
+[sub_resource type="BoxMesh" id="BoxMesh_gkhrv"]
+size = Vector3(0.2, 0.2, 0.2)
+
+[sub_resource type="Animation" id="Animation_p7m7b"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_otypf"]
+resource_name = "jumping"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.0523599, 0, 0.0349066), Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, -0.1, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_v5yo0"]
+resource_name = "landing"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-0.0523599, 0, -0.0349066), Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0.1, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_bfd24"]
+resource_name = "roll"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-2.0944, 0, -0.0349066), Vector3(-4.71239, 0, -0.0174533), Vector3(-6.28319, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0.1, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_iluba"]
+_data = {
+"RESET": SubResource("Animation_p7m7b"),
+"jumping": SubResource("Animation_otypf"),
+"landing": SubResource("Animation_v5yo0"),
+"roll": SubResource("Animation_bfd24")
+}
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bw3v0"]
+radius = 0.3
+height = 0.7
+
+[sub_resource type="Animation" id="Animation_s35ct"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_ygkof"]
+resource_name = "walking"
+loop_mode = 2
+tracks/0/type = "audio"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AudioStreamPlayer")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("2_rcht0")
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("2_rcht0")
+}],
+"times": PackedFloat32Array(0.2, 0.7)
+}
+tracks/0/use_blend = true
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_texxe"]
+_data = {
+"RESET": SubResource("Animation_s35ct"),
+"walking": SubResource("Animation_ygkof")
+}
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cutav"]
+radius = 0.28
+height = 1.0
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cpxp4"]
+radius = 0.25
+height = 1.1
+
+[sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_dssxp"]
+length = 0.3
+
+[sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_oti7l"]
+length = 0.35
+slide_on_slope = true
+
+[node name="Player" type="CharacterBody3D"]
+collision_layer = 18
+script = ExtResource("1_np2gy")
+inventory_data = ExtResource("2_cgpdo")
+footsteps_sounds = Array[AudioStreamMP3]([ExtResource("2_rcht0"), ExtResource("3_wlqrp"), ExtResource("4_0keiq"), ExtResource("5_1plv1")])
+
+[node name="crouching_collision_shape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0)
+shape = SubResource("CapsuleShape3D_un768")
+
+[node name="standing_collision_shape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_ixnuc")
+
+[node name="RayCastCrouching" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+target_position = Vector3(0, 1.9, 0)
+
+[node name="Nek" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
+
+[node name="Head" type="Node3D" parent="Nek"]
+
+[node name="Eyes" type="Node3D" parent="Nek/Head"]
+
+[node name="MainCamera3D" type="Camera3D" parent="Nek/Head/Eyes"]
+cull_mask = 1048569
+environment = ExtResource("6_whw3m")
+fov = 90.0
+
+[node name="Interaction_grabbing_ray" type="RayCast3D" parent="Nek/Head/Eyes/MainCamera3D"]
+target_position = Vector3(0, 0, -2)
+collision_mask = 4
+script = ExtResource("8_8ad7m")
+
+[node name="Drop_check" type="Area3D" parent="Nek/Head/Eyes/MainCamera3D"]
+collision_layer = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Nek/Head/Eyes/MainCamera3D/Drop_check"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.0753968, -0.25691)
+shape = SubResource("CapsuleShape3D_yaf0k")
+
+[node name="Double_Drop_check" type="RayCast3D" parent="Nek/Head/Eyes/MainCamera3D"]
+target_position = Vector3(0, 0, -1.5)
+
+[node name="Hand" type="Marker3D" parent="Nek/Head/Eyes/MainCamera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.3, -1.3)
+gizmo_extents = 0.88
+
+[node name="SB_for_grabbed_item" type="StaticBody3D" parent="Nek/Head/Eyes/MainCamera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.3, -1.3)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Nek/Head/Eyes/MainCamera3D/SB_for_grabbed_item"]
+mesh = SubResource("BoxMesh_gkhrv")
+skeleton = NodePath("../../Hand")
+
+[node name="Throw_pos" type="Marker3D" parent="Nek/Head/Eyes/MainCamera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.9)
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Nek/Head/Eyes/MainCamera3D"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="Nek/Head/Eyes/MainCamera3D/SubViewportContainer"]
+transparent_bg = true
+handle_input_locally = false
+positional_shadow_atlas_size = 4096
+positional_shadow_atlas_16_bits = false
+size = Vector2i(1280, 720)
+render_target_update_mode = 4
+
+[node name="GunCam" parent="Nek/Head/Eyes/MainCamera3D/SubViewportContainer/SubViewport" instance=ExtResource("8_giavv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.79973, 0)
+
+[node name="JoltGeneric6DOFJoint3D" type="JoltGeneric6DOFJoint3D" parent="Nek/Head/Eyes/MainCamera3D"]
+node_a = NodePath("../SB_for_grabbed_item")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Nek/Head/Eyes"]
+root_node = NodePath("../MainCamera3D")
+libraries = {
+"": SubResource("AnimationLibrary_iluba")
+}
+
+[node name="Flashlight" type="SpotLight3D" parent="Nek/Head"]
+visible = false
+layers = 3
+spot_range = 14.011
+spot_angle = 30.26
+spot_angle_attenuation = 0.615572
+
+[node name="Anit_head_bump" type="Area3D" parent="Nek/Head"]
+collision_layer = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Nek/Head/Anit_head_bump"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, -0.130232, 0)
+shape = SubResource("CapsuleShape3D_bw3v0")
+
+[node name="Anti_in_wall_walking_ray" type="RayCast3D" parent="Nek/Head"]
+
+[node name="PlayerAudio" type="Node3D" parent="."]
+
+[node name="AnimationPlayerAudio" type="AnimationPlayer" parent="PlayerAudio"]
+libraries = {
+"": SubResource("AnimationLibrary_texxe")
+}
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="PlayerAudio"]
+
+[node name="UI_controller" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="UI" parent="UI_controller" instance=ExtResource("7_6cgp5")]
+
+[node name="UnPauseTimeout" type="Timer" parent="UI_controller"]
+wait_time = 0.05
+one_shot = true
+
+[node name="Game_UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_default_cursor_shape = 2
+
+[node name="PouseMenu" parent="Game_UI" instance=ExtResource("8_breth")]
+layout_mode = 1
+
+[node name="InventoryInterface" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("10_cd8uk")
+
+[node name="PlayerInventory" parent="InventoryInterface" instance=ExtResource("8_7k8v8")]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 50.0
+offset_bottom = 50.0
+
+[node name="ExternalInventory" parent="InventoryInterface" instance=ExtResource("8_7k8v8")]
+visible = false
+layout_mode = 0
+offset_left = 566.0
+offset_top = 229.0
+offset_right = 606.0
+offset_bottom = 269.0
+
+[node name="GrabedSlot" parent="InventoryInterface" instance=ExtResource("12_m3xar")]
+visible = false
+modulate = Color(1, 1, 1, 0.494118)
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 64.0
+
+[node name="GroundSurfaceChecker" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+target_position = Vector3(0, -0.5, 0)
+script = ExtResource("14_tb3kk")
+
+[node name="Timers" type="Node3D" parent="."]
+
+[node name="CoyoteTime" type="Timer" parent="Timers"]
+wait_time = 0.25
+
+[node name="AntiSlide" type="Timer" parent="Timers"]
+wait_time = 2.0
+
+[node name="AntiBunnyHop" type="Timer" parent="Timers"]
+wait_time = 0.5
+one_shot = true
+
+[node name="Talk_timer" type="Timer" parent="Timers"]
+wait_time = 0.1
+one_shot = true
+
+[node name="Grab_delay" type="Timer" parent="Timers"]
+process_callback = 0
+wait_time = 0.5
+
+[node name="StaminaRegenTimer" type="Timer" parent="Timers"]
+wait_time = 1.5
+
+[node name="ExhaustionTimer" type="Timer" parent="Timers"]
+
+[node name="Areas" type="Node3D" parent="."]
+
+[node name="Lean_area_detector_L" type="Area3D" parent="Areas"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 1.7, 0)
+collision_layer = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Areas/Lean_area_detector_L"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.5, 0, 0)
+shape = SubResource("CapsuleShape3D_cutav")
+
+[node name="Lean_area_detector_R" type="Area3D" parent="Areas"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, 1.7, 0)
+collision_layer = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Areas/Lean_area_detector_R"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.5, 0, 0)
+shape = SubResource("CapsuleShape3D_cutav")
+
+[node name="PlayerBodyArea3D" type="Area3D" parent="Areas" groups=["Player"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Areas/PlayerBodyArea3D"]
+shape = SubResource("CapsuleShape3D_cpxp4")
+
+[node name="Area3D" type="Area3D" parent="Areas"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Areas/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.22465)
+shape = SubResource("SeparationRayShape3D_dssxp")
+
+[node name="UpstairsColisionShape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.35, -0.358878)
+shape = SubResource("SeparationRayShape3D_oti7l")
+
+[node name="RayCast3D" type="RayCast3D" parent="UpstairsColisionShape"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+target_position = Vector3(0, -0.4, 0)
+hit_from_inside = true
+hit_back_faces = false
+
+[node name="UpstairsColisionShapeL" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.35, -0.358878)
+shape = SubResource("SeparationRayShape3D_oti7l")
+
+[node name="RayCast3D2" type="RayCast3D" parent="UpstairsColisionShapeL"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+target_position = Vector3(0, -0.4, 0)
+hit_from_inside = true
+hit_back_faces = false
+
+[node name="UpstairsColisionShapeL2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.35, -0.358878)
+shape = SubResource("SeparationRayShape3D_oti7l")
+
+[node name="RayCast3D3" type="RayCast3D" parent="UpstairsColisionShapeL2"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+target_position = Vector3(0, -0.4, 0)
+hit_from_inside = true
+hit_back_faces = false
+
+[node name="UpstairsColisionShapeR" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.35, -0.358878)
+shape = SubResource("SeparationRayShape3D_oti7l")
+
+[node name="RayCast3D4" type="RayCast3D" parent="UpstairsColisionShapeR"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+target_position = Vector3(0, -0.4, 0)
+hit_from_inside = true
+hit_back_faces = false
+
+[node name="UpstairsColisionShapeR2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.35, -0.358878)
+shape = SubResource("SeparationRayShape3D_oti7l")
+
+[node name="RayCast3D5" type="RayCast3D" parent="UpstairsColisionShapeR2"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+target_position = Vector3(0, -0.4, 0)
+hit_from_inside = true
+hit_back_faces = false
+
+[connection signal="body_entered" from="Nek/Head/Eyes/MainCamera3D/Drop_check" to="." method="_on_drop_check_body_entered"]
+[connection signal="body_exited" from="Nek/Head/Eyes/MainCamera3D/Drop_check" to="." method="_on_drop_check_body_exited"]
+[connection signal="body_entered" from="Nek/Head/Anit_head_bump" to="." method="_on_anit_head_bump_body_entered"]
+[connection signal="body_exited" from="Nek/Head/Anit_head_bump" to="." method="_on_anit_head_bump_body_exited"]
+[connection signal="timeout" from="UI_controller/UnPauseTimeout" to="." method="_on_un_pause_timeout_timeout"]
+[connection signal="drop_slot_data" from="InventoryInterface" to="." method="_on_inventory_interface_drop_slot_data"]
+[connection signal="gui_input" from="InventoryInterface" to="InventoryInterface" method="_on_gui_input"]
+[connection signal="visibility_changed" from="InventoryInterface" to="InventoryInterface" method="_on_visibility_changed"]
+[connection signal="timeout" from="Timers/AntiSlide" to="." method="_on_anti_slide_timeout"]
+[connection signal="timeout" from="Timers/AntiBunnyHop" to="." method="_on_anti_bunny_hop_timeout"]
+[connection signal="timeout" from="Timers/Talk_timer" to="." method="_on_talk_timer_timeout"]
+[connection signal="timeout" from="Timers/Grab_delay" to="." method="_on_grab_delay_timeout"]
+[connection signal="timeout" from="Timers/StaminaRegenTimer" to="." method="_on_stamina_regen_timer_timeout"]
+[connection signal="area_entered" from="Areas/PlayerBodyArea3D" to="." method="_on_player_body_area_3d_area_entered"]

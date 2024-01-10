@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://d3e3se5wxiyho"]
+[gd_scene load_steps=28 format=3 uid="uid://d3e3se5wxiyho"]
 
 [ext_resource type="Script" path="res://scenes/Levels/Master_1/Master_1.gd" id="1_4kikw"]
 [ext_resource type="Environment" uid="uid://ddbuvg60s3ja" path="res://assets/env/base_env.tres" id="1_bjada"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://scenes/Levels/Master_1/RigidBody3D.gd" id="6_2yspl"]
 [ext_resource type="PackedScene" uid="uid://cow5xlmsne322" path="res://assets/models/maxwell/maxwell.tscn" id="6_gqc5p"]
 [ext_resource type="AudioStream" uid="uid://ccmrn7doglv1h" path="res://audio/ghost.mp3" id="6_sc5sq"]
+[ext_resource type="PackedScene" uid="uid://cyjuiqyodef6s" path="res://scenes/interactable/tapes/tape_1.tscn" id="7_enpam"]
 [ext_resource type="Script" path="res://scenes/Levels/Master_1/Monster_1.gd" id="7_nel80"]
 [ext_resource type="PackedScene" uid="uid://bitqvo211cuqe" path="res://scenes/interactable/balls/ball.tscn" id="7_vxt4g"]
 [ext_resource type="PackedScene" uid="uid://bukfjdkagq4wk" path="res://scenes/interactable/door/door_node.tscn" id="9_5x704"]
@@ -27,7 +28,7 @@ albedo_color = Color(0.968627, 0.196078, 0.121569, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_am555"]
 material = SubResource("StandardMaterial3D_vh6rt")
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_yf0w2"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_pnbdj"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4ilq3"]
 resource_name = "dingus"
@@ -175,10 +176,12 @@ shape = SubResource("CapsuleShape3D_qao4a")
 [node name="Maxwell" parent="World/Items" instance=ExtResource("6_gqc5p")]
 transform = Transform3D(-0.258819, 0, 0.965926, 0, 1, 0, -0.965926, 0, -0.258819, 23, 3, 19)
 
+[node name="Tape_1" parent="World/Items" instance=ExtResource("7_enpam")]
+
 [node name="Interactabels" type="Node3D" parent="World"]
 
 [node name="cube" type="RigidBody3D" parent="World/Interactabels"]
-transform = Transform3D(-0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, -0.258819, -2, 5, 0)
+transform = Transform3D(-0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, -0.258819, -2, 5.24162, 0)
 collision_layer = 5
 collision_mask = 5
 mass = 15.0
@@ -191,7 +194,7 @@ script = ExtResource("6_2yspl")
 mesh = SubResource("BoxMesh_am555")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="World/Interactabels/cube"]
-shape = SubResource("BoxShape3D_yf0w2")
+shape = SubResource("BoxShape3D_pnbdj")
 
 [node name="Ball" parent="World/Interactabels" instance=ExtResource("7_vxt4g")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 5, -3)
