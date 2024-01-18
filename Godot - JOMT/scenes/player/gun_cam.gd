@@ -9,7 +9,8 @@ var bullet_m9 = preload("res://assets/models/guns/bullet/bullet.tscn")
 var instance
 
 func _ready() -> void:
-	get_node("fps_rig/Weapon_Menager").get_node(active_gun.Weapon_Name).get_node("Armature/AnimationPlayer").queue(active_gun.Shoot_Anim)
+	if active_gun.Weapon_Name != "nothing":
+		get_node("fps_rig/Weapon_Menager").get_node(active_gun.Weapon_Name).get_node("Armature/AnimationPlayer").queue(active_gun.Shoot_Anim)
 
 func weapon_up_signal() -> void:
 	weapon_menager.changeGunUp()

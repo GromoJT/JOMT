@@ -1,0 +1,14 @@
+[remap]
+
+importer="qodot.map"
+type="Resource"
+uid="uid://dedfnwhdx8jg4"
+path="res://.godot/imported/yantar.map-2cb47eb8de710e481a09c59a77b788da.tres"
+
+[deps]
+
+source_file="res://maps/yantar.map"
+dest_files=["res://.godot/imported/yantar.map-2cb47eb8de710e481a09c59a77b788da.tres"]
+
+[params]
+

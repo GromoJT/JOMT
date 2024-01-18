@@ -6,8 +6,8 @@
 [ext_resource type="AudioStream" uid="uid://drvysqyxhpab1" path="res://audio/step_2.mp3" id="3_wlqrp"]
 [ext_resource type="AudioStream" uid="uid://ppl3ir42p2h8" path="res://audio/step_3.mp3" id="4_0keiq"]
 [ext_resource type="AudioStream" uid="uid://m4sqy48qw30u" path="res://audio/step_4.mp3" id="5_1plv1"]
-[ext_resource type="Environment" uid="uid://ddbuvg60s3ja" path="res://assets/env/base_env.tres" id="6_whw3m"]
 [ext_resource type="PackedScene" uid="uid://dfl7x3uihwmiu" path="res://scenes/ui/ui.tscn" id="7_6cgp5"]
+[ext_resource type="Environment" uid="uid://dsulissni7kgm" path="res://scenes/Levels/MantionHub/mantion_hunb_env.tres" id="7_x8w1u"]
 [ext_resource type="PackedScene" uid="uid://b3738oe1wrvpl" path="res://scripts/inventory/inventory.tscn" id="8_7k8v8"]
 [ext_resource type="Script" path="res://scenes/player/Interaction_grabbing_ray.gd" id="8_8ad7m"]
 [ext_resource type="PackedScene" uid="uid://6fin8skkxlbd" path="res://scenes/ui/PouseMenu.tscn" id="8_breth"]
@@ -190,22 +190,24 @@ _data = {
 }
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cutav"]
-radius = 0.28
+radius = 0.2
 height = 1.0
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cpxp4"]
 radius = 0.25
 height = 1.1
 
-[sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_dssxp"]
-length = 0.3
-
 [sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_oti7l"]
 length = 0.35
 slide_on_slope = true
 
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_1etrt"]
+height = 0.6
+radius = 0.25
+
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 18
+collision_mask = 3
 script = ExtResource("1_np2gy")
 inventory_data = ExtResource("2_cgpdo")
 footsteps_sounds = Array[AudioStreamMP3]([ExtResource("2_rcht0"), ExtResource("3_wlqrp"), ExtResource("4_0keiq"), ExtResource("5_1plv1")])
@@ -231,12 +233,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 
 [node name="MainCamera3D" type="Camera3D" parent="Nek/Head/Eyes"]
 cull_mask = 1048569
-environment = ExtResource("6_whw3m")
+environment = ExtResource("7_x8w1u")
 fov = 90.0
 
 [node name="Interaction_grabbing_ray" type="RayCast3D" parent="Nek/Head/Eyes/MainCamera3D"]
 target_position = Vector3(0, 0, -2)
 collision_mask = 5
+collide_with_areas = true
 script = ExtResource("8_8ad7m")
 
 [node name="dropUpRayCast" type="RayCast3D" parent="Nek/Head/Eyes/MainCamera3D/Interaction_grabbing_ray"]
@@ -279,7 +282,7 @@ skeleton = NodePath("../..")
 node_a = NodePath("../SB_for_grabbed_item")
 
 [node name="Throw_pos" type="Marker3D" parent="Nek/Head/Eyes/MainCamera3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.9)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.3)
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="Nek/Head/Eyes/MainCamera3D"]
 anchors_preset = 15
@@ -294,11 +297,12 @@ transparent_bg = true
 handle_input_locally = false
 positional_shadow_atlas_size = 4096
 positional_shadow_atlas_16_bits = false
-size = Vector2i(1280, 720)
+size = Vector2i(1200, 720)
 render_target_update_mode = 4
 
 [node name="GunCam" parent="Nek/Head/Eyes/MainCamera3D/SubViewportContainer/SubViewport" instance=ExtResource("8_giavv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.79973, 0)
+environment = ExtResource("7_x8w1u")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Nek/Head/Eyes"]
 root_node = NodePath("../MainCamera3D")
@@ -444,14 +448,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Areas/PlayerBodyArea3D"]
 shape = SubResource("CapsuleShape3D_cpxp4")
 
-[node name="Area3D" type="Area3D" parent="Areas"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Areas/Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.22465)
-shape = SubResource("SeparationRayShape3D_dssxp")
-
 [node name="UpstairsColisionShape" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.35, -0.358878)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.35, -0.359)
 shape = SubResource("SeparationRayShape3D_oti7l")
 
 [node name="RayCast3D" type="RayCast3D" parent="UpstairsColisionShape"]
@@ -460,8 +458,15 @@ target_position = Vector3(0, -0.4, 0)
 hit_from_inside = true
 hit_back_faces = false
 
+[node name="Can_I_Fit_1" type="Area3D" parent="UpstairsColisionShape"]
+collision_layer = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="UpstairsColisionShape/Can_I_Fit_1"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -0.6)
+shape = SubResource("CylinderShape3D_1etrt")
+
 [node name="UpstairsColisionShapeL" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.35, -0.358878)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.35, -0.359)
 shape = SubResource("SeparationRayShape3D_oti7l")
 
 [node name="RayCast3D2" type="RayCast3D" parent="UpstairsColisionShapeL"]
@@ -470,8 +475,14 @@ target_position = Vector3(0, -0.4, 0)
 hit_from_inside = true
 hit_back_faces = false
 
+[node name="Can_I_Fit_2" type="Area3D" parent="UpstairsColisionShapeL"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="UpstairsColisionShapeL/Can_I_Fit_2"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -0.6)
+shape = SubResource("CylinderShape3D_1etrt")
+
 [node name="UpstairsColisionShapeL2" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.35, -0.358878)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.35, -0.359)
 shape = SubResource("SeparationRayShape3D_oti7l")
 
 [node name="RayCast3D3" type="RayCast3D" parent="UpstairsColisionShapeL2"]
@@ -480,8 +491,15 @@ target_position = Vector3(0, -0.4, 0)
 hit_from_inside = true
 hit_back_faces = false
 
+[node name="Can_I_Fit_3" type="Area3D" parent="UpstairsColisionShapeL2"]
+collision_layer = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="UpstairsColisionShapeL2/Can_I_Fit_3"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -0.6)
+shape = SubResource("CylinderShape3D_1etrt")
+
 [node name="UpstairsColisionShapeR" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.35, -0.358878)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.35, -0.359)
 shape = SubResource("SeparationRayShape3D_oti7l")
 
 [node name="RayCast3D4" type="RayCast3D" parent="UpstairsColisionShapeR"]
@@ -490,8 +508,15 @@ target_position = Vector3(0, -0.4, 0)
 hit_from_inside = true
 hit_back_faces = false
 
+[node name="Can_I_Fit_4" type="Area3D" parent="UpstairsColisionShapeR"]
+collision_layer = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="UpstairsColisionShapeR/Can_I_Fit_4"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -0.6)
+shape = SubResource("CylinderShape3D_1etrt")
+
 [node name="UpstairsColisionShapeR2" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.35, -0.358878)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.35, -0.359)
 shape = SubResource("SeparationRayShape3D_oti7l")
 
 [node name="RayCast3D5" type="RayCast3D" parent="UpstairsColisionShapeR2"]
@@ -499,6 +524,13 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 
 target_position = Vector3(0, -0.4, 0)
 hit_from_inside = true
 hit_back_faces = false
+
+[node name="Can_I_Fit_5" type="Area3D" parent="UpstairsColisionShapeR2"]
+collision_layer = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="UpstairsColisionShapeR2/Can_I_Fit_5"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -0.6)
+shape = SubResource("CylinderShape3D_1etrt")
 
 [connection signal="body_entered" from="Nek/Head/Eyes/MainCamera3D/Drop_check" to="." method="_on_drop_check_body_entered"]
 [connection signal="body_exited" from="Nek/Head/Eyes/MainCamera3D/Drop_check" to="." method="_on_drop_check_body_exited"]

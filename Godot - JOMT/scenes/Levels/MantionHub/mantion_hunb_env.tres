@@ -1,0 +1,26 @@
+[gd_resource type="Environment" load_steps=5 format=3 uid="uid://dsulissni7kgm"]
+
+[ext_resource type="Shader" path="res://scenes/Levels/MantionHub/mantion_hunb.gdshader" id="1_00ttv"]
+[ext_resource type="Texture2D" uid="uid://oddqm2or8tpx" path="res://assets/textures/AllSkyFree_Sky_EpicBlueSunset_Equirect.png" id="2_twnyt"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8xnuw"]
+shader = ExtResource("1_00ttv")
+shader_parameter/skyColor = Color(1, 1, 1, 1)
+shader_parameter/horizonColor = Color(1, 1, 1, 1)
+shader_parameter/skyTexture = ExtResource("2_twnyt")
+
+[sub_resource type="Sky" id="Sky_mkyfs"]
+sky_material = SubResource("ShaderMaterial_8xnuw")
+
+[resource]
+background_mode = 2
+sky = SubResource("Sky_mkyfs")
+ambient_light_source = 3
+reflected_light_source = 2
+tonemap_mode = 2
+glow_enabled = true
+fog_enabled = true
+fog_light_color = Color(0.529412, 0.576471, 0.388235, 1)
+fog_light_energy = 0.0
+fog_aerial_perspective = 0.052
+fog_sky_affect = 0.0

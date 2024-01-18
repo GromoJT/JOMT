@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bldwmlbx45h2m"]
+
+[ext_resource type="Material" uid="uid://cl3uu0acosfcr" path="res://scenes/terain/water_shader_material.tres" id="1_5mtrr"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_srteg"]
+subdivide_width = 200
+subdivide_depth = 200
+orientation = 1
+
+[node name="Water" type="MeshInstance3D"]
+cast_shadow = 0
+mesh = SubResource("QuadMesh_srteg")
+surface_material_override/0 = ExtResource("1_5mtrr")

@@ -2,7 +2,7 @@ extends RayCast3D
 
 class_name Surface
 
-var current_coliding_surface : MeshInstance3D
+var current_coliding_surface : MeshInstance3D = null
 var surface_sound_type : String
 @onready var geo = Geometry3D
 @onready var body = get_parent()
@@ -10,17 +10,20 @@ var surface_sound_type : String
 var mdt_array = []
 
 func _physics_process(_delta: float) -> void:
+	#pass
 	#print(get_surface_sound_type())
 	if is_colliding():
 		var col = get_collider()
-		if current_coliding_surface != col.get_child(0) and col.get_child(0) is MeshInstance3D:
-			current_coliding_surface = col.get_child(0)
-			if current_coliding_surface.mesh.get_surface_count() == 1:
-				analyse_mat_path(current_coliding_surface.get_active_material(0))
-				mdt_array.clear()
-				return
-			else:
-				build_mesh_mdts()
+		#print(col.get_parent())
+		if col.get_child_count() != 0:
+			if current_coliding_surface != col.get_child(0) and col.get_child(0) is MeshInstance3D:
+				current_coliding_surface = col.get_child(0)
+				if current_coliding_surface.mesh.get_surface_count() == 1:
+					analyse_mat_path(current_coliding_surface.get_active_material(0))
+					mdt_array.clear()
+					return
+				else:
+					build_mesh_mdts()
 		extract_surface_sound_type(get_collision_point())
 		
 func build_mesh_mdts():
@@ -66,6 +69,6 @@ func analyse_mat_path(material):
 		surface_sound_type = "NULL"
 	body.set_footsteps_profile(surface_sound_type)
 	
-	#print(mat_path)
+	print(mat_path)
 func get_surface_sound_type():
 	return surface_sound_type

@@ -4,7 +4,7 @@ const SAVE_DIR="user://saves/"
 const SAVE_FILE_NAME = "save.json"
 const SECURITY_KEY = "09SSNAE38422345SMNCAI"
 
-var game_version: float = 0.106
+var game_version: float = 0.107
 
 var stamina : float
 
@@ -69,7 +69,7 @@ const PICK_UP = preload("res://scripts/item/pick_ups/pick_up.tscn")
 var levels = {
 	"level_1":"res://scenes/LoadingTestMaps/loading_level_test_1.tscn",
 	"level_2":"res://scenes/LoadingTestMaps/loading_level_test_2.tscn",
-	"master":"res://scenes/Levels/Master_1/Master_1.tscn"
+	"master":"res://scenes/Levels/MantionHub/mantion_hunb.tscn"
 }
 
 var currentScene: String

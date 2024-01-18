@@ -63,3 +63,4 @@ shape = SubResource("ConvexPolygonShape3D_q2kle")
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("3_vyckl")
 volume_db = -24.0
+attenuation_filter_cutoff_hz = 20500.0

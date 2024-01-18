@@ -39,11 +39,16 @@ func Initialize(_start_weapons:Array):
 	
 	Current_Weapon = Weapon_List[Weapon_Stack[0]]
 	gun_cam.active_gun = Current_Weapon
+	if Current_Weapon.Weapon_Name == \"nothing\":
+		print(\"nothing\")
+		$maxim9.visible = false
 	enter()
 
 func enter():
 	if Current_Weapon.Activate_Anim != \"null\":
+		$maxim9.visible = true
 		animation_player.queue(Current_Weapon.Activate_Anim)
+	
 		
 
 func exit(_next_weapon : String):
@@ -54,7 +59,7 @@ func exit(_next_weapon : String):
 			animation_player.play(Current_Weapon.Deactivate_Anim)
 			Next_Wapon = _next_weapon
 		Change_Weapon(Next_Wapon)
-
+		
 func Change_Weapon(weapon_name: String):
 	Current_Weapon = Weapon_List[weapon_name]
 	Next_Wapon = \"\"
@@ -448,8 +453,8 @@ script = ExtResource("2_n4i5g")
 
 [node name="Weapon_Menager" type="Node3D" parent="fps_rig"]
 script = SubResource("GDScript_nphlj")
-_weapon_resources = Array[Resource("res://scripts/guns/weapon_resource.gd")]([ExtResource("3_b6jwj"), ExtResource("4_qqq8l")])
-Start_Weapons = Array[String](["maxim9", "nothing"])
+_weapon_resources = Array[Resource("res://scripts/guns/weapon_resource.gd")]([ExtResource("4_qqq8l"), ExtResource("3_b6jwj")])
+Start_Weapons = Array[String](["nothing", "maxim9"])
 
 [node name="ramionaLOW" type="Node3D" parent="fps_rig/Weapon_Menager"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.68994, 0.2)

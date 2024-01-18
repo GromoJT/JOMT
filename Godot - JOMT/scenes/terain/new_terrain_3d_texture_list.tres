@@ -1,0 +1,29 @@
+[gd_resource type="Terrain3DTextureList" load_steps=10 format=3 uid="uid://dsuxviyewotcv"]
+
+[ext_resource type="Texture2D" path="res://assets/textures/terain/rock030_alb_ht.dds" id="1_r4vrn"]
+[ext_resource type="Texture2D" path="res://assets/textures/terain/grass037_alb_ht.dds" id="1_t4u5y"]
+[ext_resource type="Texture2D" path="res://assets/textures/terain/grass037_nrm_rgh.dds" id="2_pk8yx"]
+[ext_resource type="Texture2D" uid="uid://b3ta27qjkq11j" path="res://assets/textures/terain/rock030_nrm_rgh.png" id="2_qpatg"]
+[ext_resource type="Texture2D" path="res://assets/textures/terain/sand054_alb_ht.dds" id="5_4xk0c"]
+[ext_resource type="Texture2D" path="res://assets/textures/terain/sand054_nrm_rgh.dds" id="6_oqdnj"]
+
+[sub_resource type="Terrain3DTexture" id="Terrain3DTexture_lgnv7"]
+albedo_color = Color(0.289, 0.6, 0.263, 1)
+albedo_texture = ExtResource("1_t4u5y")
+normal_texture = ExtResource("2_pk8yx")
+uv_scale = 0.2
+uv_rotation = 0.322
+
+[sub_resource type="Terrain3DTexture" id="Terrain3DTexture_so3aq"]
+name = "Rock_1"
+texture_id = 1
+albedo_texture = ExtResource("1_r4vrn")
+normal_texture = ExtResource("2_qpatg")
+
+[sub_resource type="Terrain3DTexture" id="Terrain3DTexture_258jr"]
+texture_id = 2
+albedo_texture = ExtResource("5_4xk0c")
+normal_texture = ExtResource("6_oqdnj")
+
+[resource]
+textures = Array[Terrain3DTexture]([SubResource("Terrain3DTexture_lgnv7"), SubResource("Terrain3DTexture_so3aq"), SubResource("Terrain3DTexture_258jr")])

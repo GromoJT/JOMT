@@ -1,0 +1,309 @@
+[gd_scene load_steps=22 format=3 uid="uid://qrp8e2fcrnsw"]
+
+[ext_resource type="Script" path="res://scenes/interactable/door/door.gd" id="1_ah5uw"]
+[ext_resource type="Texture2D" uid="uid://dv5he53eer4v" path="res://icon.svg" id="2_3y16w"]
+[ext_resource type="Material" uid="uid://ovg1dnihcog7" path="res://scenes/interactable/door/door_handle_material.tres" id="2_dva6s"]
+[ext_resource type="AudioStream" uid="uid://daho7ygi3ib8i" path="res://audio/door_open.mp3" id="2_tsqa0"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f5s6n"]
+albedo_texture = ExtResource("2_3y16w")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_322dk"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_65pjy"]
+material = SubResource("StandardMaterial3D_322dk")
+size = Vector3(1.5, 2.63, 0.1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_j2jsx"]
+size = Vector3(1.5, 2.63, 0.1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_khnk3"]
+material = ExtResource("2_dva6s")
+radius = 0.05
+height = 0.35
+
+[sub_resource type="BoxMesh" id="BoxMesh_bhdpf"]
+material = ExtResource("2_dva6s")
+size = Vector3(0.25, 0.03, 0.03)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_is0hr"]
+size = Vector3(0.5, 0.6, 0.15)
+
+[sub_resource type="Animation" id="Animation_568ju"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hinge/trueDoor/Handle:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hinge:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AudioStreamPlayer3D:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_mi2mb"]
+resource_name = "door_close_from_back"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hinge:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 1.5708, 0), Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AudioStreamPlayer3D:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_c6x4t"]
+resource_name = "door_close_from_front"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hinge:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, -1.5708, 0), Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AudioStreamPlayer3D:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_rp1r4"]
+resource_name = "door_handle_use"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hinge/trueDoor/Handle:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, -0.436332), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_jqe7y"]
+resource_name = "door_open_from_back"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hinge:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 1.5708, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AudioStreamPlayer3D:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_y3soe"]
+resource_name = "door_open_from_front"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hinge:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, -1.5708, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AudioStreamPlayer3D:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(-0.2),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wkrut"]
+_data = {
+"RESET": SubResource("Animation_568ju"),
+"door_close_from_back": SubResource("Animation_mi2mb"),
+"door_close_from_front": SubResource("Animation_c6x4t"),
+"door_handle_use": SubResource("Animation_rp1r4"),
+"door_open_from_back": SubResource("Animation_jqe7y"),
+"door_open_from_front": SubResource("Animation_y3soe")
+}
+
+[sub_resource type="Animation" id="Animation_217sp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hinge/trueDoor/Handle:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_bn66m"]
+resource_name = "door_handle_use"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hinge/trueDoor/Handle:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, -0.349066), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jekbm"]
+_data = {
+"RESET": SubResource("Animation_217sp"),
+"door_handle_use": SubResource("Animation_bn66m")
+}
+
+[node name="Door" type="Node3D"]
+script = ExtResource("1_ah5uw")
+
+[node name="Hinge" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 0, 0)
+
+[node name="trueDoor" type="StaticBody3D" parent="Hinge"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.75, 0.01, 0)
+
+[node name="visiblePart" type="MeshInstance3D" parent="Hinge/trueDoor"]
+material_override = SubResource("StandardMaterial3D_f5s6n")
+mesh = SubResource("BoxMesh_65pjy")
+skeleton = NodePath("../../..")
+
+[node name="blokablePart" type="CollisionShape3D" parent="Hinge/trueDoor"]
+shape = SubResource("BoxShape3D_j2jsx")
+
+[node name="Handle" type="Marker3D" parent="Hinge/trueDoor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.620659, 0, 0)
+
+[node name="HandleNobHinge" type="MeshInstance3D" parent="Hinge/trueDoor/Handle"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_khnk3")
+
+[node name="HandlingPartFront" type="MeshInstance3D" parent="Hinge/trueDoor/Handle/HandleNobHinge"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.117931, -0.130029, -0.0249583)
+mesh = SubResource("BoxMesh_bhdpf")
+
+[node name="HandlingPartback" type="MeshInstance3D" parent="Hinge/trueDoor/Handle/HandleNobHinge"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.117931, 0.13, -0.025)
+mesh = SubResource("BoxMesh_bhdpf")
+
+[node name="Handle_Back" type="Area3D" parent="Hinge/trueDoor" groups=["Door", "Interactable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.620659, 0, 0)
+collision_layer = 4
+collision_mask = 0
+
+[node name="CS_Handle_Back" type="CollisionShape3D" parent="Hinge/trueDoor/Handle_Back"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.162467, 0.010139, -0.124748)
+shape = SubResource("BoxShape3D_is0hr")
+
+[node name="Handle_Front" type="Area3D" parent="Hinge/trueDoor" groups=["Door", "Interactable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.620659, 0, 0)
+collision_layer = 4
+collision_mask = 0
+
+[node name="CS_Handle_Front" type="CollisionShape3D" parent="Hinge/trueDoor/Handle_Front"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.162467, 0.01, 0.125)
+shape = SubResource("BoxShape3D_is0hr")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_wkrut")
+}
+speed_scale = 0.434
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_tsqa0")
+volume_db = -24.0
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_jekbm")
+}

@@ -1,0 +1,14 @@
+[remap]
+
+importer="qodot.map"
+type="Resource"
+uid="uid://d20x6bhjsmgfp"
+path="res://.godot/imported/MantionHub.20.map-c3c5207454a3afb8804fc5578b53395e.tres"
+
+[deps]
+
+source_file="res://maps/autosave/MantionHub.20.map"
+dest_files=["res://.godot/imported/MantionHub.20.map-c3c5207454a3afb8804fc5578b53395e.tres"]
+
+[params]
+

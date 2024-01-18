@@ -1,6 +1,6 @@
 extends Control
 
-@onready var master = "res://scenes/Levels/Master_1/Master_1.tscn"
+@onready var master = "res://scenes/Levels/MantionHub/mantion_hunb.tscn"
 @onready var loading_test_1 = "res://scenes/LoadingTestMaps/loading_level_test_1.tscn"
 @onready var EDY_STREET = "res://scenes/Levels/EdStreet/edy_street.tscn"
 

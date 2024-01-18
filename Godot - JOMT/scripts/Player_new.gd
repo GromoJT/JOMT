@@ -233,8 +233,43 @@ func _physics_process(delta):
 	var input_dir = Input.get_vector("left", "right", "forward", "back")
 	last_horizontal_pos = Vector2(position.x,position.z)
 	anti_in_wall_walking_ray.target_position= Vector3(input_dir.x,0,input_dir.y)
+	
+
+	
+	if Input.is_action_just_released("Interact"):
+		if interaction_grabbing_ray.is_colliding() :
+			if interaction_grabbing_ray.get_collider().is_in_group("Interactable"):
+				if interaction_grabbing_ray.get_collider().is_in_group("Door"):
+					interaction_grabbing_ray.get_collider().get_parent().get_parent().get_parent().Interact(interaction_grabbing_ray.get_collider())
+	
 	#print(input_dir.x)
 	
+	#print(Engine.get_frames_per_second())
+	#if $GroundSurfaceChecker.get_collider() is Terrain3D:
+		#print("off")
+		#$UpstairsColisionShape.disabled = true
+		#$UpstairsColisionShapeL.disabled = true
+		#$UpstairsColisionShapeL2.disabled = true
+		#$UpstairsColisionShapeR.disabled = true
+		#$UpstairsColisionShapeR2.disabled = true
+		#$UpstairsColisionShape/RayCast3D.enabled = false
+		#$UpstairsColisionShapeL/RayCast3D2.enabled = false
+		#$UpstairsColisionShapeL2/RayCast3D3.enabled = false
+		#$UpstairsColisionShapeR/RayCast3D4.enabled = false
+		#$UpstairsColisionShapeR2/RayCast3D5.enabled = false
+	#else:
+		#print("on")
+		#$UpstairsColisionShape.disabled = false
+		#$UpstairsColisionShapeL.disabled = false
+		#$UpstairsColisionShapeL2.disabled = false
+		#$UpstairsColisionShapeR.disabled = false
+		#$UpstairsColisionShapeR2.disabled = false
+		#$UpstairsColisionShape/RayCast3D.enabled = true
+		#$UpstairsColisionShapeL/RayCast3D2.enabled = true
+		#$UpstairsColisionShapeL2/RayCast3D3.enabled = true
+		#$UpstairsColisionShapeR/RayCast3D4.enabled = true
+		#$UpstairsColisionShapeR2/RayCast3D5.enabled = true
+		
 	#print(main_camera_3d.global_rotation_degrees)
 	#if drop_up_ray_cast != null:
 		#print(drop_up_ray_cast.global_rotation_degrees)
@@ -246,7 +281,7 @@ func _physics_process(delta):
 		interaction_grabbing_ray.target_position.z = -2
 		#print("_")
 	drop_up_ray_cast.rotation_degrees.x = -main_camera_3d.global_rotation_degrees.x
-	throw_pos.position = Vector3(0,0,-0.5)
+	throw_pos.position = Vector3(0,0,-0.3)
 	if interaction_grabbing_ray.is_colliding():
 		
 		if interaction_grabbing_ray.get_collision_normal().y>0.45:
@@ -306,7 +341,7 @@ func _physics_process(delta):
 	if Input.is_action_just_released("weapon_down") and picked_object == null:
 		gun_cam.weapon_down_signal()
 	
-	if Input.is_action_just_pressed("Light"):
+	if Input.is_action_just_pressed("lamp"):
 		toggle_personal_light()
 	
 	if Input.is_action_just_pressed("esc") and get_tree().paused == false and poused == false and !in_dialoge:
@@ -316,24 +351,24 @@ func _physics_process(delta):
 		toggle_inventory_function()
 	
 
-	if Input.is_action_just_pressed("interact") and !in_dialoge and !inventory_interface.visible and !gun_in_hand:
+	if Input.is_action_just_pressed("LMB") and !in_dialoge and !inventory_interface.visible and !gun_in_hand:
 
 		try_interact()
-	elif Input.is_action_just_pressed("interact") and !in_dialoge and gun_in_hand:
+	elif Input.is_action_just_pressed("LMB") and !in_dialoge and gun_in_hand:
 		gun_cam.shoot()
 
 		
-	if Input.is_action_pressed("interact_2") and !in_dialoge and gun_in_hand:
+	if Input.is_action_pressed("RMB") and !in_dialoge and gun_in_hand:
 		gun_cam.ADS_In()
 		
-	if Input.is_action_just_released("interact_2")  and !in_dialoge and gun_in_hand and gun_cam.is_ADS:
+	if Input.is_action_just_released("RMB")  and !in_dialoge and gun_in_hand and gun_cam.is_ADS:
 		
 		gun_cam.ADS_Out()
 	# Handle piking things up
-	if Input.is_action_pressed("interact"):
+	if Input.is_action_pressed("LMB"):
 		base_interaction()
 
-	if Input.is_action_just_released("interact"):
+	if Input.is_action_just_released("LMB"):
 		base_interaction_relese()
 
 	if picked_object != null:
@@ -342,7 +377,7 @@ func _physics_process(delta):
 
 	if Input.is_action_pressed("crouch") and is_on_floor() or sliding and !in_dialoge and !in_external_inventory :
 		crouching_func(input_dir,delta)
-	elif ray_cast_crouching.is_colliding():
+	elif ray_cast_crouching.is_colliding() :
 		crouching_func(input_dir,delta)
 	elif !ray_cast_crouching.is_colliding():
 		un_crouching_func(delta)
@@ -473,7 +508,7 @@ func base_interaction() -> void:
 	if can_grab and !inventory_interface.visible and !gun_in_hand:
 			pick_object()
 			
-			if Input.is_action_just_pressed("interact_2"):
+			if Input.is_action_just_pressed("RMB"):
 				if picked_object != null:
 					if (can_drop and picked_object.has_method("disable_collisions")) or (!can_drop and !picked_object.has_method("disable_collisions")) or (can_drop and !picked_object.has_method("disable_collisions")) :
 						#if double_drop_check.get_collider() == null:
@@ -495,7 +530,7 @@ func base_interaction_relese() -> void:
 			remove_object()
 
 func base_interaction_unhold() -> void:
-	if !Input.is_action_pressed("interact"):
+	if !Input.is_action_pressed("LMB"):
 		locked_look = false
 		if picked_object != null:
 			if (can_drop and picked_object.has_method("disable_collisions")) or (!can_drop and !picked_object.has_method("disable_collisions")) or (can_drop and !picked_object.has_method("disable_collisions")):
@@ -512,7 +547,7 @@ func open_esc_menu() -> void:
 		poused = true
 		pouse_menu.pause()
 
-func object_rotation_when_looking_down(delta) -> void:
+func object_rotation_when_looking_down(_delta) -> void:
 	if rad_to_deg(head.rotation.x) < -40:
 		hand.position = Vector3(0.6,-0.3,-0.8)
 	else:
@@ -699,9 +734,7 @@ func _play_sound(track:AudioStreamMP3):
 
 func try_interact():
 	var collider = interaction_grabbing_ray.get_collider()
-	if collider != null and collider.is_in_group("Interactable"):
-		if collider.has_method("interact"):
-			collider.interact()
+	if collider != null :
 		if collider.has_method("talk"):
 			Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
 			in_dialoge = true
@@ -858,7 +891,11 @@ func _snap_down_to_stairs_check():
 	_was_on_floor_last_frame = is_on_floor()
 	_snapped_to_stairs_last_frame = did_snap
 var _last_xz_vel : Vector3 = Vector3(0,0,0)
+
+var is_a_terain:bool = false
+
 func _rotate_step_up_separation_ray()-> void:
+	_is_this_a_terain()
 	var xz_vel = velocity * Vector3(1,0,1)
 	
 	if xz_vel.length() < 0.1:
@@ -894,18 +931,15 @@ func _rotate_step_up_separation_ray()-> void:
 	var max_slope_ang_dot = Vector3(0,1,0).rotated(Vector3(1.0,0,0),self.floor_max_angle).dot(Vector3(0,1,0))
 	var any_too_steep = false
 	#print(max_slope_ang_dot)
-	if $UpstairsColisionShape/RayCast3D.is_colliding() and $UpstairsColisionShape/RayCast3D.get_collision_normal().dot(Vector3(0,1,0)) < max_slope_ang_dot:
-		#print("*********************")
-		#print($UpstairsColisionShape/RayCast3D.get_collision_normal().dot(Vector3(0,1,0)))
-		#print("*********************")
+	if ($UpstairsColisionShape/RayCast3D.is_colliding() and $UpstairsColisionShape/RayCast3D.get_collision_normal().dot(Vector3(0,1,0)) < max_slope_ang_dot)  or len($UpstairsColisionShape/Can_I_Fit_1.get_overlapping_bodies()) > 0 or is_a_terain:
 		any_too_steep = true
-	if $UpstairsColisionShapeL/RayCast3D2.is_colliding() and $UpstairsColisionShapeL/RayCast3D2.get_collision_normal().dot(Vector3(0,1,0)) < max_slope_ang_dot:
+	if ($UpstairsColisionShapeL/RayCast3D2.is_colliding() and $UpstairsColisionShapeL/RayCast3D2.get_collision_normal().dot(Vector3(0,1,0)) < max_slope_ang_dot) or len($UpstairsColisionShapeL/Can_I_Fit_2.get_overlapping_bodies()) > 0 or is_a_terain:
 		any_too_steep = true
-	if $UpstairsColisionShapeL2/RayCast3D3.is_colliding() and $UpstairsColisionShapeL2/RayCast3D3.get_collision_normal().dot(Vector3(0,1,0)) < max_slope_ang_dot:
+	if ($UpstairsColisionShapeL2/RayCast3D3.is_colliding() and $UpstairsColisionShapeL2/RayCast3D3.get_collision_normal().dot(Vector3(0,1,0)) < max_slope_ang_dot) or len($UpstairsColisionShapeL2/Can_I_Fit_3.get_overlapping_bodies()) > 0 or is_a_terain:
 		any_too_steep = true
-	if $UpstairsColisionShapeR/RayCast3D4.is_colliding() and $UpstairsColisionShapeR/RayCast3D4.get_collision_normal().dot(Vector3(0,1,0)) < max_slope_ang_dot:
+	if ($UpstairsColisionShapeR/RayCast3D4.is_colliding() and $UpstairsColisionShapeR/RayCast3D4.get_collision_normal().dot(Vector3(0,1,0)) < max_slope_ang_dot) or len($UpstairsColisionShapeR/Can_I_Fit_4.get_overlapping_bodies()) > 0 or is_a_terain:
 		any_too_steep = true
-	if $UpstairsColisionShapeR2/RayCast3D5.is_colliding() and $UpstairsColisionShapeR2/RayCast3D5.get_collision_normal().dot(Vector3(0,1,0)) < max_slope_ang_dot:
+	if ($UpstairsColisionShapeR2/RayCast3D5.is_colliding() and $UpstairsColisionShapeR2/RayCast3D5.get_collision_normal().dot(Vector3(0,1,0)) < max_slope_ang_dot) or len($UpstairsColisionShapeR2/Can_I_Fit_5.get_overlapping_bodies()) > 0 or is_a_terain:
 		any_too_steep = true
 	
 	$UpstairsColisionShape.disabled = any_too_steep
@@ -913,3 +947,9 @@ func _rotate_step_up_separation_ray()-> void:
 	$UpstairsColisionShapeL2.disabled = any_too_steep
 	$UpstairsColisionShapeR.disabled = any_too_steep
 	$UpstairsColisionShapeR2.disabled = any_too_steep
+	
+func _is_this_a_terain():
+	if $UpstairsColisionShape/RayCast3D.get_collider() is Terrain3D:
+		is_a_terain = true
+	else:
+		is_a_terain = false
