@@ -1,0 +1,16 @@
+[gd_resource type="Environment" load_steps=3 format=3 uid="uid://ckxoj8cxjlrdt"]
+
+[ext_resource type="Material" uid="uid://dx4u33s7x3x3h" path="res://scenes/Levels/MantionHub/hellish_sky_shader_material.tres" id="1_avvpv"]
+
+[sub_resource type="Sky" id="Sky_8ohl6"]
+sky_material = ExtResource("1_avvpv")
+
+[resource]
+background_mode = 2
+background_energy_multiplier = 4.63
+sky = SubResource("Sky_8ohl6")
+ambient_light_source = 3
+ambient_light_color = Color(0.835294, 0, 0, 1)
+ambient_light_energy = 3.84
+fog_light_color = Color(0.87451, 0, 0.164706, 1)
+fog_light_energy = 0.21

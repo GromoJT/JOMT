@@ -1,22 +1,18 @@
-[gd_scene load_steps=28 format=3 uid="uid://d3e3se5wxiyho"]
+[gd_scene load_steps=26 format=3 uid="uid://d3e3se5wxiyho"]
 
 [ext_resource type="Script" path="res://scenes/Levels/Master_1/Master_1.gd" id="1_4kikw"]
 [ext_resource type="Environment" uid="uid://ddbuvg60s3ja" path="res://assets/env/base_env.tres" id="1_bjada"]
 [ext_resource type="PackedScene" uid="uid://38q4fe3wbosk" path="res://scenes/player/player_advance.tscn" id="2_hnyxl"]
 [ext_resource type="PackedScene" uid="uid://rhuk72q00jyv" path="res://scenes/Levels/QodotLevelTester/qodot_test_level.tscn" id="4_kxupu"]
+[ext_resource type="PackedScene" uid="uid://dwgcummk6j3td" path="res://scenes/mobs/monster_1.tscn" id="5_k4mjc"]
 [ext_resource type="Script" path="res://scenes/Levels/Master_1/RigidBody3D.gd" id="6_2yspl"]
 [ext_resource type="PackedScene" uid="uid://cow5xlmsne322" path="res://assets/models/maxwell/maxwell.tscn" id="6_gqc5p"]
 [ext_resource type="AudioStream" uid="uid://ccmrn7doglv1h" path="res://audio/ghost.mp3" id="6_sc5sq"]
 [ext_resource type="PackedScene" uid="uid://cyjuiqyodef6s" path="res://scenes/interactable/tapes/tape_1.tscn" id="7_enpam"]
-[ext_resource type="Script" path="res://scenes/Levels/Master_1/Monster_1.gd" id="7_nel80"]
 [ext_resource type="PackedScene" uid="uid://bitqvo211cuqe" path="res://scenes/interactable/balls/ball.tscn" id="7_vxt4g"]
 [ext_resource type="PackedScene" uid="uid://bukfjdkagq4wk" path="res://scenes/interactable/door/door_node.tscn" id="9_5x704"]
 [ext_resource type="Texture2D" uid="uid://byvs5a1nfetlw" path="res://assets/models/maxwell_the_cat_dingus_0.jpg" id="10_cpcy6"]
 [ext_resource type="AudioStream" uid="uid://ban8m80nxho7h" path="res://audio/cat/maxwell-the-cat-theme.mp3" id="11_27iov"]
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_8mkga"]
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qao4a"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_bttex"]
 rough = true
@@ -158,18 +154,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 
 [node name="Monsters" type="Node3D" parent="World"]
 
-[node name="CharacterBody3D" type="CharacterBody3D" parent="World/Monsters"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.1, -25)
-collision_layer = 0
-script = ExtResource("7_nel80")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="World/Monsters/CharacterBody3D"]
-mesh = SubResource("CapsuleMesh_8mkga")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Monsters/CharacterBody3D"]
-shape = SubResource("CapsuleShape3D_qao4a")
-
-[node name="NavigationAgent3D" type="NavigationAgent3D" parent="World/Monsters/CharacterBody3D"]
+[node name="CharacterBody3D" parent="World/Monsters" instance=ExtResource("5_k4mjc")]
 
 [node name="Items" type="Node3D" parent="World"]
 

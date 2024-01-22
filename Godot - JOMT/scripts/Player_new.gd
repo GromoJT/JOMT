@@ -241,39 +241,10 @@ func _physics_process(delta):
 			if interaction_grabbing_ray.get_collider().is_in_group("Interactable"):
 				if interaction_grabbing_ray.get_collider().is_in_group("Door"):
 					interaction_grabbing_ray.get_collider().get_parent().get_parent().get_parent().Interact(interaction_grabbing_ray.get_collider())
+				if interaction_grabbing_ray.get_collider().is_in_group("Sign"):
+					print(get_parent().zombie_deer_attack())
 	
-	#print(input_dir.x)
 	
-	#print(Engine.get_frames_per_second())
-	#if $GroundSurfaceChecker.get_collider() is Terrain3D:
-		#print("off")
-		#$UpstairsColisionShape.disabled = true
-		#$UpstairsColisionShapeL.disabled = true
-		#$UpstairsColisionShapeL2.disabled = true
-		#$UpstairsColisionShapeR.disabled = true
-		#$UpstairsColisionShapeR2.disabled = true
-		#$UpstairsColisionShape/RayCast3D.enabled = false
-		#$UpstairsColisionShapeL/RayCast3D2.enabled = false
-		#$UpstairsColisionShapeL2/RayCast3D3.enabled = false
-		#$UpstairsColisionShapeR/RayCast3D4.enabled = false
-		#$UpstairsColisionShapeR2/RayCast3D5.enabled = false
-	#else:
-		#print("on")
-		#$UpstairsColisionShape.disabled = false
-		#$UpstairsColisionShapeL.disabled = false
-		#$UpstairsColisionShapeL2.disabled = false
-		#$UpstairsColisionShapeR.disabled = false
-		#$UpstairsColisionShapeR2.disabled = false
-		#$UpstairsColisionShape/RayCast3D.enabled = true
-		#$UpstairsColisionShapeL/RayCast3D2.enabled = true
-		#$UpstairsColisionShapeL2/RayCast3D3.enabled = true
-		#$UpstairsColisionShapeR/RayCast3D4.enabled = true
-		#$UpstairsColisionShapeR2/RayCast3D5.enabled = true
-		
-	#print(main_camera_3d.global_rotation_degrees)
-	#if drop_up_ray_cast != null:
-		#print(drop_up_ray_cast.global_rotation_degrees)
-	#drop_up_ray_cast.position = interaction_grabbing_ray.get_target_position()
 	if main_camera_3d.global_rotation_degrees.x < -55:
 		interaction_grabbing_ray.target_position.z = -2.2
 		#print("*")
@@ -312,7 +283,6 @@ func _physics_process(delta):
 		drop_dist = max(test_object_sieze.x,test_object_sieze.y,test_object_sieze.z) / 2
 		
 	can_lean_func()
-	#print(cur_stamina)
 	declare_moon_walk(input_dir)
 	
 	Globals.stamina = cur_stamina;
@@ -464,23 +434,16 @@ func _physics_process(delta):
 			cur_stamina = cur_stamina + (20 * delta)
 	
 	if !in_dialoge and !in_external_inventory and can_move:
-		#handle_stairs()
-
 		_rotate_step_up_separation_ray()
 		move_and_slide()
 		_snap_down_to_stairs_check()
 		
 		HV = Vector2((position.x-last_horizontal_pos.x)/delta ,(position.z-last_horizontal_pos.y)/delta).length()
-		#print(HV)
 		for i in get_slide_collision_count():
 			var c = get_slide_collision(i)
 			if c.get_collider() is RigidBody3D:
-				#print("bingo")
-				#print(-c.get_normal())
-				#print(direction)
 				c.get_collider().apply_impulse((-c.get_normal() * push_force * HV) )
-				
-		
+
 func toggle_inventory_function(external_inventory_owner = null)->void:
 	if !in_dialoge:
 		inventory_interface.visible = !inventory_interface.visible

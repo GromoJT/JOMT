@@ -69,6 +69,6 @@ func analyse_mat_path(material):
 		surface_sound_type = "NULL"
 	body.set_footsteps_profile(surface_sound_type)
 	
-	print(mat_path)
+	#print(mat_path)
 func get_surface_sound_type():
 	return surface_sound_type

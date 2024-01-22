@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://drl540524g3fv"]
+
+[ext_resource type="PackedScene" uid="uid://b33ejjey5xj1p" path="res://assets/models/guns/shotgun/shotgun.glb" id="1_dgfik"]
+
+[node name="shotgun" instance=ExtResource("1_dgfik")]
+
+[node name="GUN" parent="." index="0"]
+transform = Transform3D(1.2, 0, 0, 0, -3.49691e-08, -1.2, 0, 0.8, -5.24537e-08, 0, 0.15, -0.125)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="1"]

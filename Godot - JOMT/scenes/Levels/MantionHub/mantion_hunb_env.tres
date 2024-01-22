@@ -15,12 +15,10 @@ sky_material = SubResource("ShaderMaterial_8xnuw")
 [resource]
 background_mode = 2
 sky = SubResource("Sky_mkyfs")
-ambient_light_source = 3
 reflected_light_source = 2
 tonemap_mode = 2
 glow_enabled = true
 fog_enabled = true
-fog_light_color = Color(0.529412, 0.576471, 0.388235, 1)
 fog_light_energy = 0.0
 fog_aerial_perspective = 0.052
 fog_sky_affect = 0.0

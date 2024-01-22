@@ -451,9 +451,11 @@ shape = SubResource("CapsuleShape3D_cpxp4")
 [node name="UpstairsColisionShape" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.35, -0.359)
 shape = SubResource("SeparationRayShape3D_oti7l")
+disabled = true
 
 [node name="RayCast3D" type="RayCast3D" parent="UpstairsColisionShape"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+enabled = false
 target_position = Vector3(0, -0.4, 0)
 hit_from_inside = true
 hit_back_faces = false
@@ -464,10 +466,12 @@ collision_layer = 2
 [node name="CollisionShape3D" type="CollisionShape3D" parent="UpstairsColisionShape/Can_I_Fit_1"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -0.6)
 shape = SubResource("CylinderShape3D_1etrt")
+disabled = true
 
 [node name="UpstairsColisionShapeL" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.35, -0.359)
 shape = SubResource("SeparationRayShape3D_oti7l")
+disabled = true
 
 [node name="RayCast3D2" type="RayCast3D" parent="UpstairsColisionShapeL"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
@@ -480,10 +484,12 @@ hit_back_faces = false
 [node name="CollisionShape3D" type="CollisionShape3D" parent="UpstairsColisionShapeL/Can_I_Fit_2"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -0.6)
 shape = SubResource("CylinderShape3D_1etrt")
+disabled = true
 
 [node name="UpstairsColisionShapeL2" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.35, -0.359)
 shape = SubResource("SeparationRayShape3D_oti7l")
+disabled = true
 
 [node name="RayCast3D3" type="RayCast3D" parent="UpstairsColisionShapeL2"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
@@ -497,10 +503,12 @@ collision_layer = 0
 [node name="CollisionShape3D" type="CollisionShape3D" parent="UpstairsColisionShapeL2/Can_I_Fit_3"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -0.6)
 shape = SubResource("CylinderShape3D_1etrt")
+disabled = true
 
 [node name="UpstairsColisionShapeR" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.35, -0.359)
 shape = SubResource("SeparationRayShape3D_oti7l")
+disabled = true
 
 [node name="RayCast3D4" type="RayCast3D" parent="UpstairsColisionShapeR"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
@@ -514,10 +522,12 @@ collision_layer = 0
 [node name="CollisionShape3D" type="CollisionShape3D" parent="UpstairsColisionShapeR/Can_I_Fit_4"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -0.6)
 shape = SubResource("CylinderShape3D_1etrt")
+disabled = true
 
 [node name="UpstairsColisionShapeR2" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.35, -0.359)
 shape = SubResource("SeparationRayShape3D_oti7l")
+disabled = true
 
 [node name="RayCast3D5" type="RayCast3D" parent="UpstairsColisionShapeR2"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
@@ -531,6 +541,7 @@ collision_layer = 0
 [node name="CollisionShape3D" type="CollisionShape3D" parent="UpstairsColisionShapeR2/Can_I_Fit_5"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -0.6)
 shape = SubResource("CylinderShape3D_1etrt")
+disabled = true
 
 [connection signal="body_entered" from="Nek/Head/Eyes/MainCamera3D/Drop_check" to="." method="_on_drop_check_body_entered"]
 [connection signal="body_exited" from="Nek/Head/Eyes/MainCamera3D/Drop_check" to="." method="_on_drop_check_body_exited"]

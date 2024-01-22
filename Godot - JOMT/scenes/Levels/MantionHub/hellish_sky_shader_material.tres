@@ -1,0 +1,10 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://dx4u33s7x3x3h"]
+
+[ext_resource type="Shader" path="res://scenes/Levels/MantionHub/hellish_mantion_hunb_env.gdshader" id="1_guhvy"]
+[ext_resource type="Texture2D" uid="uid://tjg4c3kleov4" path="res://assets/textures/hell.png" id="2_ouf8n"]
+
+[resource]
+shader = ExtResource("1_guhvy")
+shader_parameter/skyColor = Color(1, 0, 0, 1)
+shader_parameter/horizonColor = Color(1, 0, 0, 1)
+shader_parameter/skyTexture = ExtResource("2_ouf8n")

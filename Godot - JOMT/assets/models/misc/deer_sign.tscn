@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://dgv4afqbdy742"]
+
+[ext_resource type="PackedScene" uid="uid://c4klfjo3ls1bm" path="res://assets/models/misc/deer_sign.glb" id="1_6xeh2"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lv3at"]
+size = Vector3(0.2, 2, 2)
+
+[node name="deer_sign" instance=ExtResource("1_6xeh2")]
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 0)
+
+[node name="Area3D" type="Area3D" parent="." index="1" groups=["Interactable", "Sign"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.428571, 1.14286, 0)
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" index="0"]
+shape = SubResource("BoxShape3D_lv3at")
